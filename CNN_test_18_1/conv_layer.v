@@ -1,7 +1,7 @@
 module conv_layer(
 	input clk,
 	input RESET,
-	//input in,
+	input in,
 	input start_wr, start_rd,
 	output result
 );
@@ -15,13 +15,12 @@ reg [bit_depth*14-1:0] w1, w2;
 
 reg [9:0] cnt_wr, cnt_rd;
 reg [4:0] addr_a, addr_b;
-wire [bit_depth-1:0] data_a = 16'd2;
+wire [bit_depth-1:0] data_a = 16'd3;
 wire [bit_depth-1:0] data_b = 16'd1;
-reg wren_a, wren_b;
+reg wren_a, wren_b, rden_a, rden_b;
 
 
 
-assign in = {9*16'd1};
 
 always@(negedge clk)
 begin
@@ -33,6 +32,8 @@ begin
 		addr_b <= 5'd31;
 		wren_a <= 1'b0;
 		wren_b <= 1'b0;
+		rden_a <= 1'b0;
+		rden_b <= 1'b0;
 	end
 	
 	if(start_wr)
@@ -41,15 +42,14 @@ begin
 			cnt_wr<=10'd1;
 		else if(cnt_wr<=10'd14)
 		begin
-			cnt_wr<=cnt_wr+10'd1;
+			cnt_wr <= cnt_wr+10'd1;
 			wren_a <= 1'b1;
 			wren_b <= 1'b1;
 			addr_a <= cnt_wr[4:0] - 5'd1;
-			addr_b  <= cnt_wr[4:0] + 5'd13;
+			addr_b <= cnt_wr[4:0] + 5'd13;
 		end
 		else
 		begin
-			cnt_wr <= 10'd0;
 			wren_a <= 1'b0;
 			wren_b <= 1'b0;
 			addr_a <= 5'd31;
@@ -66,13 +66,17 @@ begin
 			cnt_rd<=10'd1;
 		else if(cnt_rd<=10'd14)
 		begin
-			cnt_rd<=cnt_rd+10'd1;
+			rden_a <= 1'b1;
+			rden_b <= 1'b1;
+			cnt_rd <= cnt_rd + 10'd1;
 			addr_a <= cnt_rd[4:0] - 5'd1;
-			addr_b  <= cnt_rd[4:0] + 5'd13;
+			addr_b <= cnt_rd[4:0] + 5'd13;
 		end
 		else if(cnt_rd==10'd15)
 		begin
-			cnt_rd<=10'd29;
+			cnt_rd <= 10'd16;
+			rden_a <= 1'b0;
+			rden_b <= 1'b0;
 			addr_a <= 5'd31;
 			addr_b <= 5'd31;
 		end
@@ -85,7 +89,6 @@ begin
 		begin
 			addr_a <= 5'd31;
 			addr_b <= 5'd31;
-			cnt_rd <= 10'd0;
 		end
 	end
 	
@@ -112,6 +115,8 @@ bram bram0 (
 	.data_b	(data_b),
 	.address_a(addr_a),
 	.address_b(addr_b),
+	.rden_a	(rden_a),
+	.rden_b	(rden_b),
 	
 	.q_a		(q_a),
 	.q_b		(q_b)
@@ -128,9 +133,8 @@ begin
 	end
 end
 
-wire [bit_depth*27-1:0] w = {w1, w2[bit_depth*14-1:bit_depth]};
+wire [bit_depth*27-1:0] w = (RESET)? 432'd0 : {w1, w2[bit_depth*14-1:bit_depth]};
 
-// depth wise
 wire [bit_depth-1:0] result0, result1, result2;
 wire [bit_depth-1:0] result_a;
 cnn conv0(

@@ -7,7 +7,9 @@ module bram (
 		input  wire [4:0]  address_b, // address_b.address_b
 		input  wire        wren_a,    //    wren_a.wren_a
 		input  wire        wren_b,    //    wren_b.wren_b
-		input  wire        clock      //     clock.clk
+		input  wire        clock,     //     clock.clk
+		input  wire        rden_a,    //    rden_a.rden_a
+		input  wire        rden_b     //    rden_b.rden_b
 	);
 endmodule
 

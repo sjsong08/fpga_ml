@@ -12,10 +12,12 @@ module bram (
 		input  wire [4:0]  address_b, // address_b.address_b
 		input  wire        wren_a,    //    wren_a.wren_a
 		input  wire        wren_b,    //    wren_b.wren_b
-		input  wire        clock      //     clock.clk
+		input  wire        clock,     //     clock.clk
+		input  wire        rden_a,    //    rden_a.rden_a
+		input  wire        rden_b     //    rden_b.rden_b
 	);
 
-	bram_ram_2port_181_czrnpby ram_2port_0 (
+	bram_ram_2port_181_ssc23zq ram_2port_0 (
 		.data_a    (data_a),    //   input,  width = 16,    data_a.datain_a
 		.q_a       (q_a),       //  output,  width = 16,       q_a.dataout_a
 		.data_b    (data_b),    //   input,  width = 16,    data_b.datain_b
@@ -24,7 +26,9 @@ module bram (
 		.address_b (address_b), //   input,   width = 5, address_b.address_b
 		.wren_a    (wren_a),    //   input,   width = 1,    wren_a.wren_a
 		.wren_b    (wren_b),    //   input,   width = 1,    wren_b.wren_b
-		.clock     (clock)      //   input,   width = 1,     clock.clk
+		.clock     (clock),     //   input,   width = 1,     clock.clk
+		.rden_a    (rden_a),    //   input,   width = 1,    rden_a.rden_a
+		.rden_b    (rden_b)     //   input,   width = 1,    rden_b.rden_b
 	);
 
 endmodule
