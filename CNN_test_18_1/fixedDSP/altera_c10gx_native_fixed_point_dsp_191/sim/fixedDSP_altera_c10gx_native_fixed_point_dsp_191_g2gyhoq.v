@@ -1,4 +1,4 @@
-// (C) 2001-2018 Intel Corporation. All rights reserved.
+// (C) 2001-2019 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -11,988 +11,115 @@
 // agreement for further details.
 
 
-
-
-
-
-
-
-
-
-
-
-
 // synopsys translate_off
-
 `timescale 1 ps / 1 ps
-
 // synopsys translate_on
-
-module  fixedDSP_altera_c10gx_native_fixed_point_dsp_181_x2a5njy  (
-
-
-
-
-
-
-
-
+module  fixedDSP_altera_c10gx_native_fixed_point_dsp_191_g2gyhoq  (
             ax,
-
-
-
-
-
             ay,
-
-
-
-
-
             bx,
-
-
-
-
-
             by,
-
-
-
-
-
-
-
-            resulta);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            resulta,
+            resultb);
 
             input [17:0] ax;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             input [17:0] ay;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             input [17:0] bx;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             input [17:0] by;
+            output [36:0] resulta;
+            output [36:0] resultb;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-            output [63:0] resulta;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            wire [63:0] sub_wire0;
-
-
-
-
-
-
-
-
-
-
-
-            wire [63:0] resulta = sub_wire0[63:0];    
-
-
-
-
-
-
-
-
+            wire [36:0] sub_wire0;
+            wire [36:0] sub_wire1;
+            wire [36:0] resulta = sub_wire0[36:0];    
+            wire [36:0] resultb = sub_wire1[36:0];    
 
             cyclone10gx_mac        cyclone10gx_mac_component (
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                         .ax (ax),
-
-
-
-
-
                                         .ay (ay),
-
-
-
-
-
                                         .bx (bx),
-
-
-
-
-
                                         .by (by),
-
-
-
-
-
                                         .resulta (sub_wire0),
-
-
-
-
-
+                                        .resultb (sub_wire1),
                                         .accumulate (),
-
-
-
-
-
                                         .aclr (),
-
-
-
-
-
                                         .az (),
-
-
-
-
-
                                         .bz (),
-
-
-
-
-
                                         .chainin (),
-
-
-
-
-
                                         .chainout (),
-
-
-
-
-
                                         .clk (),
-
-
-
-
-
                                         .coefsela (),
-
-
-
-
-
                                         .coefselb (),
-
-
-
-
-
                                         .dftout (),
-
-
-
-
-
                                         .ena (),
-
-
-
-
-
                                         .loadconst (),
-
-
-
-
-
                                         .negate (),
-
-
-
-
-
-                                        .resultb (),
-
-
-
-
-
                                         .scanin (),
-
-
-
-
-
                                         .scanout (),
-
-
-
-
-
-
-
                                         .sub ());
-
-
-
-
-
-
             defparam
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.ax_width = 18,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.ay_scan_in_width = 18,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.bx_width = 18,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.by_width = 18,
-
-
-
-
-
-
-
-
-
-
-                    cyclone10gx_mac_component.operation_mode = "m18x18_sumof2",
-
-
-
-
-
-
-
-
+                    cyclone10gx_mac_component.operation_mode = "m18x18_full",
                     cyclone10gx_mac_component.mode_sub_location = 0,
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.operand_source_max = "input",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.operand_source_may = "input",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.operand_source_mbx = "input",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.operand_source_mby = "input",
-
-
-
-
-
-
-
-
-
-
-                    cyclone10gx_mac_component.signed_max = "true",
-
-
-
-
-
-
-
-
-
-
-                    cyclone10gx_mac_component.signed_may = "true",
-
-
-
-
-
-
-
-
-
-
-                    cyclone10gx_mac_component.signed_mbx = "true",
-
-
-
-
-
-
-
-
-
-
-                    cyclone10gx_mac_component.signed_mby = "true",
-
-
-
-
-
-
-
-
-
-
+                    cyclone10gx_mac_component.signed_max = "false",
+                    cyclone10gx_mac_component.signed_may = "false",
+                    cyclone10gx_mac_component.signed_mbx = "false",
+                    cyclone10gx_mac_component.signed_mby = "false",
                     cyclone10gx_mac_component.preadder_subtract_a = "false",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.preadder_subtract_b = "false",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.ay_use_scan_in = "false",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.by_use_scan_in = "false",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.delay_scan_out_ay = "false",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.delay_scan_out_by = "false",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.use_chainadder = "false",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.enable_double_accum = "false",
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.load_const_value = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_a_0 = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_a_1 = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_a_2 = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_a_3 = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_a_4 = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_a_5 = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_a_6 = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_a_7 = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_b_0 = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_b_1 = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_b_2 = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_b_3 = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_b_4 = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_b_5 = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_b_6 = 0,
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_b_7 = 0,
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.ax_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.ay_scan_in_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.az_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.bx_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.by_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.bz_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_sel_a_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.coef_sel_b_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.sub_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.sub_pipeline_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.negate_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.negate_pipeline_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.accumulate_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.accum_pipeline_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.load_const_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.load_const_pipeline_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.input_pipeline_clock = "none",
-
-
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.output_clock = "none",
-
-
-
-
-
-
-
-
                     cyclone10gx_mac_component.scan_out_width = 18,
-
-
-
-
-
-
-
-
-
-
-                    cyclone10gx_mac_component.result_a_width = 64;
-
-
-
-
-
-
+                    cyclone10gx_mac_component.result_a_width = 37,
+                    cyclone10gx_mac_component.result_b_width = 37;
 
 
 endmodule
-
-
 
 

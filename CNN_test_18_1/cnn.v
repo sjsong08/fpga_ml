@@ -55,6 +55,6 @@ paral_add add0(
 	.data4x	(result8[15:0]),
 	.result	(result)
 );
-//123
+
 
 endmodule

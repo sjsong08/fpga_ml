@@ -4,22 +4,22 @@
 
 `timescale 1 ps / 1 ps
 module issp (
-		output wire [3:0]   source, // sources.source
-		input  wire [447:0] probe   //  probes.probe
+		output wire [3:0]  source, // sources.source
+		input  wire [47:0] probe   //  probes.probe
 	);
 
 	altsource_probe_top #(
 		.sld_auto_instance_index ("YES"),
 		.sld_instance_index      (0),
 		.instance_id             (""),
-		.probe_width             (448),
+		.probe_width             (48),
 		.source_width            (4),
 		.source_initial_value    ("0"),
 		.enable_metastability    ("NO")
 	) in_system_sources_probes_0 (
-		.source     (source), //  output,    width = 4, sources.source
-		.probe      (probe),  //   input,  width = 448,  probes.probe
-		.source_ena (1'b1)    // (terminated),                       
+		.source     (source), //  output,   width = 4, sources.source
+		.probe      (probe),  //   input,  width = 48,  probes.probe
+		.source_ena (1'b1)    // (terminated),                      
 	);
 
 endmodule
