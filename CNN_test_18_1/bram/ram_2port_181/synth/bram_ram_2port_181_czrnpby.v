@@ -15,7 +15,7 @@
 // synopsys translate_off
 `timescale 1 ps / 1 ps
 // synopsys translate_on
-module  bram_ram_2port_181_hdg6nwy  (
+module  bram_ram_2port_181_czrnpby  (
     address_a,
     address_b,
     clock,
@@ -26,8 +26,8 @@ module  bram_ram_2port_181_hdg6nwy  (
     q_a,
     q_b);
 
-    input  [5:0]  address_a;
-    input  [5:0]  address_b;
+    input  [4:0]  address_a;
+    input  [4:0]  address_b;
     input    clock;
     input  [15:0]  data_a;
     input  [15:0]  data_b;
@@ -88,8 +88,8 @@ module  bram_ram_2port_181_hdg6nwy  (
         altera_syncram_component.indata_reg_b  = "CLOCK0",
         altera_syncram_component.intended_device_family  = "Cyclone 10 GX",
         altera_syncram_component.lpm_type  = "altera_syncram",
-        altera_syncram_component.numwords_a  = 54,
-        altera_syncram_component.numwords_b  = 54,
+        altera_syncram_component.numwords_a  = 27,
+        altera_syncram_component.numwords_b  = 27,
         altera_syncram_component.operation_mode  = "BIDIR_DUAL_PORT",
         altera_syncram_component.outdata_aclr_a  = "NONE",
         altera_syncram_component.outdata_sclr_a  = "NONE",
@@ -101,8 +101,8 @@ module  bram_ram_2port_181_hdg6nwy  (
         altera_syncram_component.read_during_write_mode_mixed_ports  = "DONT_CARE",
         altera_syncram_component.read_during_write_mode_port_a  = "NEW_DATA_NO_NBE_READ",
         altera_syncram_component.read_during_write_mode_port_b  = "NEW_DATA_NO_NBE_READ",
-        altera_syncram_component.widthad_a  = 6,
-        altera_syncram_component.widthad_b  = 6,
+        altera_syncram_component.widthad_a  = 5,
+        altera_syncram_component.widthad_b  = 5,
         altera_syncram_component.width_a  = 16,
         altera_syncram_component.width_b  = 16,
         altera_syncram_component.width_byteena_a  = 1,
