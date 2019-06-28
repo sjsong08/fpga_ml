@@ -338,7 +338,7 @@ cnn conv8(
 );
 
 paral_add p_add2(
-	.data0x(result0),
+	.data0x(result6),
 	.data1x(result7),
 	.data2x(result8),
 	.result(result_c)
