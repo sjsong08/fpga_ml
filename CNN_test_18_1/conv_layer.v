@@ -21,44 +21,151 @@ wire [bit_depth-1:0] data_b = 16'd1;
 reg wren_a, wren_b, rden_a, rden_b;
 
 
-/////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+
+reg in0_wren_a, in0_rden_a, in0_wren_b, in0_rden_b;
+reg in1_wren_a, in1_rden_a, in1_wren_b, in1_rden_b;
+reg in2_wren_a, in2_rden_a, in2_wren_b, in2_rden_b;
+reg [5:0] in0_addr_a, in0_addr_b; 
+reg [5:0] in0_addr_a, in0_addr_b; 
+reg [5:0] in0_addr_a, in0_addr_b; 
+
+
+reg [bit_depth*9-1:0] in_sam;
+always@(negedge clk)
+	in_sam <= in;
+
+reg de_del, cnt_de, init_de;
+always@(posedge clk)
+	de_del <= de;
+always @(posedge clk)
+begin
+	if (RESET || start_wr == 1'b0)
+		cnt_de <= 2'd0;	
+	if (de == 1'b0 && de_del == 1'b1)
+	begin
+		if(cnt_de == 2'd2)
+			cnt_de <= 2'd0;
+		else
+			cnt_de <= cnt_de + 2'd1;
+	end
+	else
+		cnt_de <= cnt_de;
+end
 
 always@(negedge clk)
 begin
 	if(RESET)
 	begin
-		cnt_wr <= 10'd0;
-		cnt_rd <= 10'd0;
-		addr_a <= 5'd31;
-		addr_b <= 5'd31;
-		wren_a <= 1'b0;
-		wren_b <= 1'b0;
-		rden_a <= 1'b0;
-		rden_b <= 1'b0;
+		in0_wren_a <= 1'b0;
+		in0_wren_b <= 1'b0;
+		in0_rden_a <= 1'b0;
+		in0_rden_b <= 1'b0;
+		in0_addr_a <= 6'b000000;
+		in0_addr_b <= 6'b100000;
+		
+		in1_wren_a <= 1'b0;
+		in1_wren_b <= 1'b0;
+		in1_rden_a <= 1'b0;
+		in1_rden_b <= 1'b0;
+		in1_addr_a <= 6'b000000;
+		in1_addr_b <= 6'b100000;
+		
+		in2_wren_a <= 1'b0;
+		in2_wren_b <= 1'b0;
+		in2_rden_a <= 1'b0;
+		in2_rden_b <= 1'b0;
+		in2_addr_a <= 6'b000000;
+		in2_addr_b <= 6'b100000;
 	end
 	
+	if(start_wr)
+	begin
+		if (de)
+		begin
+			if(cnt_de == 10'd0)
+			begin
+				in0_wren_a <= 1'b1; in0_rden_a <= 1'b0; in0_rden_b <= 1'b0;
+				in0_addr_a <= in0_addr_a + 6'b1;
+				in0_addr_b <= in0_addr_b + 6'b1;
+				
+				in1_wren_a <= 1'b0; in1_rden_a <= 1'b1; in1_rden_b <= 1'b1;
+				in1_addr_a <= 6'b000000;
+				in1_addr_b <= 6'b100000;
+				
+				in2_wren_a <= 1'b1; in2_rden_a <= 1'b0; in2_rden_b <= 1'b1;
+				in2_addr_a <= in2_addr_b + 6'b1;
+				in2_addr_b <= in2_addr_b + 6'b1;	
+			end
 
+			else if(cnt_de == 10'd1)
+			begin
+				in0_wren_a <= 1'b1; in0_rden_a <= 1'b0; in0_rden_b <= 1'b1;
+				in0_addr_a <= in0_addr_b + 6'b1;
+				in0_addr_b <= in0_addr_b + 6'b1;
+				
+				in1_wren_a <= 1'b1; in1_rden_a <= 1'b0; in1_rden_b <= 1'b0;
+				in1_addr_a <= in1_addr_a + 6'b1;
+				in1_addr_b <= in1_addr_b + 6'b1;
+				
+				in2_wren_a <= 1'b0; in2_rden_a <= 1'b1; in2_rden_b <= 1'b1;
+				in2_addr_a <= 6'b000000;
+				in2_addr_b <= 6'b100000;
+						
+			end
+		
+			else if(cnt_de == 10'd2)
+			begin
+				in0_wren_a <= 1'b0; in0_rden_a <= 1'b1; in0_rden_b <= 1'b1;
+				in0_addr_a <= 6'b000000;
+				in0_addr_b <= 6'b100000;
+				
+				in1_wren_a <= 1'b1; in1_rden_a <= 1'b0; in1_rden_b <= 1'b1;
+				in1_addr_a <= in1_addr_b + 6'b1;
+				in1_addr_b <= in1_addr_b + 6'b1;
+				
+				in2_wren_a <= 1'b1; in2_rden_a <= 1'b0; in2_rden_b <= 1'b0;
+				in2_addr_a <= in0_addr_a + 6'b1;
+				in2_addr_b <= in0_addr_b + 6'b1;	
+				
+			end
+		end	
+	end
 	else
 	begin
-		cnt_wr<=10'd0;
-		cnt_rd<=10'd0;
-		wren_a <= 1'b0;
-		wren_b <= 1'b0;
-		addr_a <= 5'd31;
-		addr_b  <= 5'd31;
+		in0_wren_a <= 1'b0;
+		in0_wren_b <= 1'b0;
+		in0_rden_a <= 1'b0;
+		in0_rden_b <= 1'b0;
+		in0_addr_a <= 6'b000000;
+		in0_addr_b <= 6'b100000;
+		
+		in1_wren_a <= 1'b0;
+		in1_wren_b <= 1'b0;
+		in1_rden_a <= 1'b0;
+		in1_rden_b <= 1'b0;
+		in1_addr_a <= 6'b000000;
+		in1_addr_b <= 6'b100000;
+		
+		in2_wren_a <= 1'b0;
+		in2_wren_b <= 1'b0;
+		in2_rden_a <= 1'b0;
+		in2_rden_b <= 1'b0;
+		in2_addr_a <= 6'b000000;
+		in2_addr_b <= 6'b100000;
 	end
-end
 
+end
 
 
 
 wire [bit_depth-1:0] in0_q_a, in0_q_b;
 bram bram_in0 (
-	.clock	(in0_clk),
+	.clock	(clk),
 	.wren_a	(in0_wren_a),
 	.wren_b	(in0_wren_b),
-	.data_a	(in0_data_a),
-	.data_b	(in0_data_b),
+	.data_a	(data_a),
+	.data_b	(data_b),
 	.address_a(in0_addr_a),
 	.address_b(in0_addr_b),
 	.rden_a	(in0_rden_a),
@@ -70,11 +177,11 @@ bram bram_in0 (
 
 wire [bit_depth-1:0] in1_q_a, in1_q_b;
 bram bram_in1 (
-	.clock	(in1_clk),
+	.clock	(clk),
 	.wren_a	(in1_wren_a),
 	.wren_b	(in1_wren_b),
-	.data_a	(in1_data_a),
-	.data_b	(in1_data_b),
+	.data_a	(data_a),
+	.data_b	(data_b),
 	.address_a(in1_addr_a),
 	.address_b(in1_addr_b),
 	.rden_a	(in1_rden_a),
@@ -86,11 +193,11 @@ bram bram_in1 (
 
 wire [bit_depth-1:0] in2_q_a, in2_q_b;
 bram bram_in2 (
-	.clock	(in2_clk),
+	.clock	(clk),
 	.wren_a	(in2_wren_a),
 	.wren_b	(in2_wren_b),
-	.data_a	(in2_data_a),
-	.data_b	(in2_data_b),
+	.data_a	(data_a),
+	.data_b	(data_b),
 	.address_a(in2_addr_a),
 	.address_b(in2_addr_b),
 	.rden_a	(in2_rden_a),
