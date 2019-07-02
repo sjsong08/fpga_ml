@@ -6,9 +6,9 @@ module CNN_test(
 );
 
 parameter bit_depth = 16;
-wire [bit_depth*9-1:0] in;
+wire [bit_depth-1:0] in;
 
-wire [15:0] resulta;
+wire [bit_depth-1:0] resulta;
 wire [3:0] in_source;
 conv_layer layer0(
 	.clk	(clk),
