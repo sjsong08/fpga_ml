@@ -743,7 +743,7 @@
         <ipxact:parameter parameterId="GUI_MEMSIZE_WORDS" type="int">
           <ipxact:name>GUI_MEMSIZE_WORDS</ipxact:name>
           <ipxact:displayName>How many words of memory?</ipxact:displayName>
-          <ipxact:value>27</ipxact:value>
+          <ipxact:value>32</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="GUI_QA_WIDTH" type="int">
           <ipxact:name>GUI_QA_WIDTH</ipxact:name>
@@ -973,7 +973,7 @@
         <ipxact:parameter parameterId="GUI_Q_PORT_MODE" type="int">
           <ipxact:name>GUI_Q_PORT_MODE</ipxact:name>
           <ipxact:displayName>&lt;html&gt;How should the q_a and q_b outputs behave when reading a memory location&lt;br&gt;that is being written from the other port?&lt;/html&gt;</ipxact:displayName>
-          <ipxact:value>2</ipxact:value>
+          <ipxact:value>1</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="GUI_CONSTRAINED_DONT_CARE" type="bit">
           <ipxact:name>GUI_CONSTRAINED_DONT_CARE</ipxact:name>
@@ -1063,12 +1063,12 @@
         <ipxact:parameter parameterId="GUI_NUMWORDS_A" type="int">
           <ipxact:name>GUI_NUMWORDS_A</ipxact:name>
           <ipxact:displayName></ipxact:displayName>
-          <ipxact:value>27</ipxact:value>
+          <ipxact:value>32</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="GUI_NUMWORDS_B" type="int">
           <ipxact:name>GUI_NUMWORDS_B</ipxact:name>
           <ipxact:displayName></ipxact:displayName>
-          <ipxact:value>27</ipxact:value>
+          <ipxact:value>32</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="GUI_RESOURCE_USAGE" type="string">
           <ipxact:name>GUI_RESOURCE_USAGE</ipxact:name>

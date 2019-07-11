@@ -1,8 +1,10 @@
 module cnn(
-	input [15:0] in0, in1, in2, in3, in4, in5, in6, in7, in8,
-	input [15:0] w0, w1, w2, w3, w4, w5, w6, w7, w8, 
-	output [15:0] result
+	input [bit_depth-1:0] in0, in1, in2, in3, in4, in5, in6, in7, in8,
+	input [bit_depth-1:0] w0, w1, w2, w3, w4, w5, w6, w7, w8, 
+	output [bit_depth-1+4:0] result
 );
+
+parameter bit_depth = 16;
 
 wire [63:0] result01, result23, result45, result67, result8;
 
@@ -41,8 +43,8 @@ fixedDSP conv0_67(
 fixedDSP conv0_8(
 	.ax		({2'b00, in8}),
 	.ay		({2'b00, w8}),
-	.bx		(18'd0),
-	.by		(18'd0),
+	.bx		('d0),
+	.by		('d0),
 	.resulta	(result8)
 );
 

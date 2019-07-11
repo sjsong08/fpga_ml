@@ -1,19 +1,16 @@
 
-
 module conv_layer(
-	input clk,
-	input RESET,
-	input de,
-	input in,
-	input start_wr, start_rd,
-	output wire result
+	input wire clk,
+	input wire RESET,
+	input wire de,
+	input wire [bit_depth-1:0] in,
+	input wire start_wr, start_rd,
+	output wire [bit_depth-1:0] result
 );
 
 parameter bit_depth = 16;
 
-wire de;
-wire [bit_depth-1:0] in;
-wire [bit_depth-1:0] result;
+
 reg [bit_depth*14-1:0] w1, w2; 
 
 reg [9:0] cnt_wr, cnt_rd;
@@ -25,17 +22,21 @@ reg wren_a, wren_b, rden_a, rden_b;
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-reg in_wren_a, in_rden_a, in_wren_b, in_rden_b;
-reg [5:0] in0_addr_a, in0_addr_b; 
-reg [5:0] in1_addr_a, in1_addr_b; 
-reg [5:0] in2_addr_a, in2_addr_b; 
-
+reg in0_wren, in0_rden, in1_wren, in1_rden, in2_wren, in2_rden, in3_wren, in3_rden;
+reg [4:0] in_addr;
 
 reg [bit_depth-1:0] in_sam;
 always@(negedge clk)
 	in_sam <= in;
 
-reg de_del1, de_del2, de_del3, de_del4, de_del5, de_del6;
+reg de_del1;
+reg de_del2;
+reg de_del3;
+reg de_del4;
+reg de_del5;
+reg de_del6;
+
+reg [4:0] cnt_de;
 
 always@(posedge clk)
 begin	
@@ -47,147 +48,144 @@ begin
 	de_del6 <= de_del5;
 end
 
-
-reg [3:0] cnt_de;
 always @(posedge clk)
 begin
 	if (RESET || start_wr == 1'b0)
-		cnt_de <= 2'd0;	
-	if (de == 1'b0 && de_del1 == 1'b1)
-		cnt_de <= cnt_de + 1'b1;
+		cnt_de <= 5'd0;	
+	if (de_del3 == 1'b0 && de_del4 == 1'b1)
+	begin
+		if (cnt_de == 5'd27)
+			cnt_de <= 5'd0;
+		else
+			cnt_de <= cnt_de + 5'd1;
+	end
 	else
 		cnt_de <= cnt_de;
 end
+
 
 always@(negedge clk)
 begin
 	if(RESET)
 	begin
-		in_wren_a <= 1'b0;
-		in_wren_b <= 1'b0;
-		in_rden_a <= 1'b0;
-		in_rden_b <= 1'b0;
-		in0_addr_a <= 6'b000000;
-		in0_addr_b <= 6'b100000;
-		in1_addr_a <= 6'b000000;
-		in1_addr_b <= 6'b100000;
-		in2_addr_a <= 6'b000000;
-		in2_addr_b <= 6'b100000;
+		in_addr <= 5'd0;
+		in0_wren <= 1'b0;
+		in0_rden <= 1'b0;
+		in1_wren <= 1'b0;
+		in1_rden <= 1'b0;
+		in2_wren <= 1'b0;
+		in2_rden <= 1'b0;
+		in3_wren <= 1'b0;
+		in3_rden <= 1'b0;
 	end
 	
 	if(start_wr)
 	begin
 		if (de)
 		begin
-			in_wren_a <= 1'b1;
-			in_rden_a <= 1'b0;
-			in_wren_b <= 1'b0;
-			in_rden_b <= 1'b1;
-			in0_addr_a <= in0_addr_a + 6'b1;
-			in0_addr_b <= in0_addr_b + 6'b1;
-			in1_addr_a <= in1_addr_a + 6'b1;
-			in1_addr_b <= in1_addr_b + 6'b1;
-			in2_addr_a <= in2_addr_a + 6'b1;
-			in2_addr_b <= in2_addr_b + 6'b1;
+			in_addr <= in_addr + 5'd1;
+			
+			if(cnt_de[1:0] == 2'b00)
+			begin
+				in0_wren <= 1'b1; in0_rden <= 1'b0;
+				in1_wren <= 1'b0; in1_rden <= 1'b1;
+				in2_wren <= 1'b0; in2_rden <= 1'b1;
+				in3_wren <= 1'b0; in3_rden <= 1'b1;
+			end
+			else if(cnt_de[1:0] == 2'b01)
+			begin
+				in0_wren <= 1'b0; in0_rden <= 1'b1;
+				in1_wren <= 1'b1; in1_rden <= 1'b0;
+				in2_wren <= 1'b0; in2_rden <= 1'b1;
+				in3_wren <= 1'b0; in3_rden <= 1'b1;
+			end
+			else if(cnt_de[1:0] == 2'b10)
+			begin
+				in0_wren <= 1'b0; in0_rden <= 1'b1;
+				in1_wren <= 1'b0; in1_rden <= 1'b1;
+				in2_wren <= 1'b1; in2_rden <= 1'b0;
+				in3_wren <= 1'b0; in3_rden <= 1'b1;
+			end
+			else if(cnt_de[1:0] == 2'b11)
+			begin
+				in0_wren <= 1'b0; in0_rden <= 1'b1;
+				in1_wren <= 1'b0; in1_rden <= 1'b1;
+				in2_wren <= 1'b0; in2_rden <= 1'b1;
+				in3_wren <= 1'b1; in3_rden <= 1'b0;
+			end
+
 		end
 		else
 		begin
-			in_wren_a <= 1'b0;
-			in_rden_a <= 1'b0;
-			in_wren_b <= 1'b0;
-			in_rden_b <= 1'b0;
-
-			if(cnt_de[0] == 1'b0)
-			begin
-				in0_addr_a <= 6'b000000; 	in0_addr_b <= 6'b100000;
-				in1_addr_a <= 6'b100000 - 6'd2;	in1_addr_b <= 6'b000000;
-				in2_addr_a <= 6'b000000 - 6'd2;	in2_addr_b <= 6'b100000;
-			end
-			else if(cnt_de[0] == 1'b1)
-			begin
-				in0_addr_a <= 6'b100000; 	in0_addr_b <= 6'b000000;
-				in1_addr_a <= 6'b000000 - 6'd2;	in1_addr_b <= 6'b100000;
-				in2_addr_a <= 6'b100000 - 6'd2;	in2_addr_b <= 6'b000000;
-			end
-
-		end
-			
+			in_addr <= 5'd0;
+			in0_wren <= 1'b0;
+			in0_rden <= 1'b0;
+			in1_wren <= 1'b0;
+			in1_rden <= 1'b0;
+			in2_wren <= 1'b0;
+			in2_rden <= 1'b0;
+			in3_wren <= 1'b0;
+			in3_rden <= 1'b0;
+		end	
 	end
 	else
 	begin
-		in_wren_a <= 1'b0;
-		in_wren_b <= 1'b0;
-		in_rden_a <= 1'b0;
-		in_rden_b <= 1'b0;
-		in0_addr_a <= 6'b000000;
-		in0_addr_b <= 6'b100000;
-		in1_addr_a <= 6'b000000;
-		in1_addr_b <= 6'b100000;
-		in2_addr_a <= 6'b000000;
-		in2_addr_b <= 6'b100000;
+		in_addr <= 6'd0;
+		in0_wren <= 1'b0;
+		in0_rden <= 1'b0;
+		in1_wren <= 1'b0;
+		in1_rden <= 1'b0;
+		in2_wren <= 1'b0;
+		in2_rden <= 1'b0;
+		in3_wren <= 1'b0;
+		in3_rden <= 1'b0;
 	end
-
 end
 
 
-wire [bit_depth-1:0] in0_q_a, in0_q_b;
-wire [bit_depth-1:0] in1_q_a, in1_q_b;
-wire [bit_depth-1:0] in2_q_a, in2_q_b;
 
-reg [15:0] in0_sam, in1_sam, in2_sam;
-always @(negedge clk)
-begin
-	in0_sam <= in0_q_b;
-	in1_sam <= in1_q_b;
-	in2_sam <= in2_q_b;
-end
-
-
-bram_64 bram_in0 (
+wire [bit_depth-1:0] in0_q;
+bram_1port bram_in0 (
 	.clock	(clk),
-	.wren_a	(in_wren_a),
-	.wren_b	(in_wren_b),
-	.rden_a	(in_rden_a),
-	.rden_b	(in_rden_b),
-	.address_a(in0_addr_a),
-	.address_b(in0_addr_b),
-	.data_a	(in_sam),
-	.data_b	(in_sam),
+	.wren	(in0_wren),
+	.rden	(in0_rden),
+	.address(in_addr),
+	.data	(in_sam),
 	
-	.q_a		(in0_q_a),
-	.q_b		(in0_q_b)
+	.q		(in0_q)
 );
 
-
-bram_64 bram_in1 (
+wire [bit_depth-1:0] in1_q;
+bram_1port bram_in1 (
 	.clock	(clk),
-	.wren_a	(in_wren_a),
-	.wren_b	(in_wren_b),
-	.rden_a	(in_rden_a),
-	.rden_b	(in_rden_b),
-	.address_a(in1_addr_a),
-	.address_b(in1_addr_b),
-	.data_a	(in0_sam),
-	.data_b	(in0_sam),
-
-	.q_a		(in1_q_a),
-	.q_b		(in1_q_b)
+	.wren	(in1_wren),
+	.rden	(in1_rden),
+	.address(in_addr),
+	.data	(in_sam),
+	
+	.q		(in1_q)
 );
 
-
-bram_64 bram_in2 (
+wire [bit_depth-1:0] in2_q;
+bram_1port bram_in2 (
 	.clock	(clk),
-	.wren_a	(in_wren_a),
-	.wren_b	(in_wren_b),
-	.rden_a	(in_rden_a),
-	.rden_b	(in_rden_b),
-	.address_a(in2_addr_a),
-	.address_b(in2_addr_b),
-	.data_a	(in1_sam),
-	.data_b	(in1_sam),
+	.wren	(in2_wren),
+	.rden	(in2_rden),
+	.address(in_addr),
+	.data	(in_sam),
+	
+	.q		(in2_q)
+);
 
-	.q_a		(in2_q_a),
-	.q_b		(in2_q_b)
+wire [bit_depth-1:0] in3_q;
+bram_1port bram_in3 (
+	.clock	(clk),
+	.wren	(in3_wren),
+	.rden	(in3_rden),
+	.address(in_addr),
+	.data	(in_sam),
+	
+	.q		(in3_q)
 );
 
 
@@ -196,9 +194,34 @@ always@(posedge clk)
 begin
 	if (de || de_del3)
 	begin
-		in00 <= in2_q_b; in01 <= in00; in02 <= in01;
-		in10 <= in1_q_b; in11 <= in10; in12 <= in11;
-		in20 <= in0_q_b; in21 <= in20; in22 <= in21;
+		in00 <= in01; in01 <= in02;
+		in10 <= in11; in11 <= in12;
+		in20 <= in21; in21 <= in22;
+	
+		if(cnt_de[1:0] == 2'b00)
+		begin
+			in02 <= in1_q;
+			in12 <= in2_q;
+			in22 <= in3_q;
+		end
+		else if(cnt_de[1:0] == 2'b01)
+		begin
+			in02 <= in2_q;
+			in12 <= in3_q;
+		        in22 <= in0_q;	
+		end
+		else if(cnt_de[1:0] == 2'b10)
+		begin
+			in02 <= in3_q;
+			in12 <= in0_q;
+		        in22 <= in1_q;
+		end
+		else if(cnt_de[1:0] == 2'b11)
+		begin
+			in02 <= in0_q;
+			in12 <= in1_q;
+		        in22 <= in2_q;
+		end
 	end
 	else
 	begin
@@ -208,6 +231,7 @@ begin
 	end
 end
 		
+
 reg [bit_depth*9-1:0] in_fin;
 
 always @(posedge clk)
@@ -346,7 +370,7 @@ end
 
 wire [bit_depth*27-1:0] w = (RESET)? 432'd0 : {w1, w2[bit_depth*14-1:bit_depth]};
 
-wire [bit_depth-1:0] result0, result1, result2;
+wire [bit_depth-1+4:0] result0, result1, result2;
 wire [bit_depth-1:0] result_a;
 cnn conv0(
 	.in0(in_fin[bit_depth*9-1:bit_depth*8]),
