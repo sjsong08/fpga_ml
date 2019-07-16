@@ -1938,7 +1938,7 @@
         <ipxact:parameter parameterId="PHY_DDR3_DEFAULT_IO" type="bit">
           <ipxact:name>PHY_DDR3_DEFAULT_IO</ipxact:name>
           <ipxact:displayName>Use default I/O settings</ipxact:displayName>
-          <ipxact:value>false</ipxact:value>
+          <ipxact:value>true</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="PHY_DDR3_HPS_ENABLE_EARLY_RELEASE" type="bit">
           <ipxact:name>PHY_DDR3_HPS_ENABLE_EARLY_RELEASE</ipxact:name>
@@ -3343,12 +3343,12 @@
         <ipxact:parameter parameterId="MEM_READ_LATENCY" type="real">
           <ipxact:name>MEM_READ_LATENCY</ipxact:name>
           <ipxact:displayName>PARAM_MEM_READ_LATENCY_NAME</ipxact:displayName>
-          <ipxact:value>14.0</ipxact:value>
+          <ipxact:value>13.0</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="MEM_WRITE_LATENCY" type="int">
           <ipxact:name>MEM_WRITE_LATENCY</ipxact:name>
           <ipxact:displayName>PARAM_MEM_WRITE_LATENCY_NAME</ipxact:displayName>
-          <ipxact:value>10</ipxact:value>
+          <ipxact:value>9</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="MEM_BURST_LENGTH" type="int">
           <ipxact:name>MEM_BURST_LENGTH</ipxact:name>
@@ -3613,7 +3613,7 @@
         <ipxact:parameter parameterId="MEM_DDR3_MR0" type="int">
           <ipxact:name>MEM_DDR3_MR0</ipxact:name>
           <ipxact:displayName>PARAM_MEM_DDR3_MR0_NAME</ipxact:displayName>
-          <ipxact:value>3620</ipxact:value>
+          <ipxact:value>3604</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="MEM_DDR3_MR1" type="int">
           <ipxact:name>MEM_DDR3_MR1</ipxact:name>
@@ -3623,7 +3623,7 @@
         <ipxact:parameter parameterId="MEM_DDR3_MR2" type="int">
           <ipxact:name>MEM_DDR3_MR2</ipxact:name>
           <ipxact:displayName>PARAM_MEM_DDR3_MR2_NAME</ipxact:displayName>
-          <ipxact:value>131624</ipxact:value>
+          <ipxact:value>131616</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="MEM_DDR3_MR3" type="int">
           <ipxact:name>MEM_DDR3_MR3</ipxact:name>
@@ -3683,7 +3683,7 @@
         <ipxact:parameter parameterId="MEM_DDR3_WTCL" type="int">
           <ipxact:name>MEM_DDR3_WTCL</ipxact:name>
           <ipxact:displayName>Memory write CAS latency setting</ipxact:displayName>
-          <ipxact:value>10</ipxact:value>
+          <ipxact:value>9</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="MEM_DDR3_ATCL_ENUM" type="string">
           <ipxact:name>MEM_DDR3_ATCL_ENUM</ipxact:name>
@@ -3693,7 +3693,7 @@
         <ipxact:parameter parameterId="MEM_DDR3_TCL" type="int">
           <ipxact:name>MEM_DDR3_TCL</ipxact:name>
           <ipxact:displayName>Memory CAS latency setting</ipxact:displayName>
-          <ipxact:value>14</ipxact:value>
+          <ipxact:value>13</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="MEM_DDR3_USE_DEFAULT_ODT" type="bit">
           <ipxact:name>MEM_DDR3_USE_DEFAULT_ODT</ipxact:name>

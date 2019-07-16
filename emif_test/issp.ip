@@ -123,7 +123,7 @@
           <ipxact:vectors>
             <ipxact:vector>
               <ipxact:left>0</ipxact:left>
-              <ipxact:right>324</ipxact:right>
+              <ipxact:right>351</ipxact:right>
             </ipxact:vector>
           </ipxact:vectors>
           <ipxact:wireTypeDefs>
@@ -173,7 +173,7 @@
         <ipxact:parameter parameterId="probe_width" type="int">
           <ipxact:name>probe_width</ipxact:name>
           <ipxact:displayName>Probe Port Width [0..511]</ipxact:displayName>
-          <ipxact:value>325</ipxact:value>
+          <ipxact:value>352</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="source_width" type="int">
           <ipxact:name>source_width</ipxact:name>
@@ -223,7 +223,7 @@
         <ipxact:parameter parameterId="device" type="string">
           <ipxact:name>device</ipxact:name>
           <ipxact:displayName>Device</ipxact:displayName>
-          <ipxact:value>10CX220YF780I5G</ipxact:value>
+          <ipxact:value>10CX220YF780E5G</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="deviceFamily" type="string">
           <ipxact:name>deviceFamily</ipxact:name>
