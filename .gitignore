@@ -10,6 +10,7 @@
 *.smsg
 *.json
 qdb/
+*.spf
 *.tcl
 *.hex
 *.sv
