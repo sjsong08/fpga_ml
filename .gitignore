@@ -6,6 +6,7 @@
 *.html
 *.ppf
 *.qgsynthc
+*.qip
 *.xml
 *.sopcinfo
 *.rpt
@@ -23,4 +24,7 @@
 *.hdb
 *.src
 *.cdb
+*.txt
+*.sdc
+*.bak
 
