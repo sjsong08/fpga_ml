@@ -1,3 +1,15 @@
+*.qws
+*.qdf
+*.qgsimc
+*.spd
+*.done
+*.summary
+*.pin
+*.sld
+*.sof
+*.smsg
+*.json
+/qdb/
 *.tcl
 *.hex
 *.sv
