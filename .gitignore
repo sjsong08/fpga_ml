@@ -9,7 +9,7 @@
 *.sof
 *.smsg
 *.json
-/qdb/
+qdb/
 *.tcl
 *.hex
 *.sv
