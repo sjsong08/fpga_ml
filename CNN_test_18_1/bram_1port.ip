@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<ipxact:component xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014" xmlns:altera="http://www.altera.com/XMLSchema/IPXact2014/extensions">
+<ipxact:component xmlns:altera="http://www.altera.com/XMLSchema/IPXact2014/extensions" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014">
   <ipxact:vendor>Intel Corporation</ipxact:vendor>
   <ipxact:library>bram_1port</ipxact:library>
   <ipxact:name>ram_1port_0</ipxact:name>
@@ -313,7 +313,7 @@
           <ipxact:vectors>
             <ipxact:vector>
               <ipxact:left>0</ipxact:left>
-              <ipxact:right>15</ipxact:right>
+              <ipxact:right>62</ipxact:right>
             </ipxact:vector>
           </ipxact:vectors>
           <ipxact:wireTypeDefs>
@@ -331,7 +331,7 @@
           <ipxact:vectors>
             <ipxact:vector>
               <ipxact:left>0</ipxact:left>
-              <ipxact:right>15</ipxact:right>
+              <ipxact:right>62</ipxact:right>
             </ipxact:vector>
           </ipxact:vectors>
           <ipxact:wireTypeDefs>
@@ -530,7 +530,7 @@
         <ipxact:parameter parameterId="GUI_WIDTH_A" type="int">
           <ipxact:name>GUI_WIDTH_A</ipxact:name>
           <ipxact:displayName>How wide should the 'q' output bus be?</ipxact:displayName>
-          <ipxact:value>16</ipxact:value>
+          <ipxact:value>63</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="GUI_NUMWORDS_A" type="int">
           <ipxact:name>GUI_NUMWORDS_A</ipxact:name>
@@ -590,7 +590,7 @@
         <ipxact:parameter parameterId="GUI_BYTE_WIDTH" type="int">
           <ipxact:name>GUI_BYTE_WIDTH</ipxact:name>
           <ipxact:displayName></ipxact:displayName>
-          <ipxact:value>2</ipxact:value>
+          <ipxact:value>1</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="GUI_MODULE_NAME" type="string">
           <ipxact:name>GUI_MODULE_NAME</ipxact:name>

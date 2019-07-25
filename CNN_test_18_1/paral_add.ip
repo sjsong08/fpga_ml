@@ -147,7 +147,7 @@
           <ipxact:vectors>
             <ipxact:vector>
               <ipxact:left>0</ipxact:left>
-              <ipxact:right>19</ipxact:right>
+              <ipxact:right>15</ipxact:right>
             </ipxact:vector>
           </ipxact:vectors>
           <ipxact:wireTypeDefs>
@@ -165,7 +165,7 @@
           <ipxact:vectors>
             <ipxact:vector>
               <ipxact:left>0</ipxact:left>
-              <ipxact:right>19</ipxact:right>
+              <ipxact:right>15</ipxact:right>
             </ipxact:vector>
           </ipxact:vectors>
           <ipxact:wireTypeDefs>
@@ -183,7 +183,7 @@
           <ipxact:vectors>
             <ipxact:vector>
               <ipxact:left>0</ipxact:left>
-              <ipxact:right>19</ipxact:right>
+              <ipxact:right>15</ipxact:right>
             </ipxact:vector>
           </ipxact:vectors>
           <ipxact:wireTypeDefs>
@@ -201,7 +201,7 @@
           <ipxact:vectors>
             <ipxact:vector>
               <ipxact:left>0</ipxact:left>
-              <ipxact:right>19</ipxact:right>
+              <ipxact:right>15</ipxact:right>
             </ipxact:vector>
           </ipxact:vectors>
           <ipxact:wireTypeDefs>
@@ -219,7 +219,7 @@
           <ipxact:vectors>
             <ipxact:vector>
               <ipxact:left>0</ipxact:left>
-              <ipxact:right>19</ipxact:right>
+              <ipxact:right>15</ipxact:right>
             </ipxact:vector>
           </ipxact:vectors>
           <ipxact:wireTypeDefs>
@@ -237,7 +237,7 @@
           <ipxact:vectors>
             <ipxact:vector>
               <ipxact:left>0</ipxact:left>
-              <ipxact:right>22</ipxact:right>
+              <ipxact:right>18</ipxact:right>
             </ipxact:vector>
           </ipxact:vectors>
           <ipxact:wireTypeDefs>
@@ -267,7 +267,7 @@
         <ipxact:parameter parameterId="GUI_WIDTH" type="int">
           <ipxact:name>GUI_WIDTH</ipxact:name>
           <ipxact:displayName>How wide is the 'data' input?</ipxact:displayName>
-          <ipxact:value>20</ipxact:value>
+          <ipxact:value>16</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="GUI_SIZE" type="int">
           <ipxact:name>GUI_SIZE</ipxact:name>
@@ -302,7 +302,7 @@
         <ipxact:parameter parameterId="WIDTHR" type="int">
           <ipxact:name>WIDTHR</ipxact:name>
           <ipxact:displayName>Effective 'result' width</ipxact:displayName>
-          <ipxact:value>23</ipxact:value>
+          <ipxact:value>19</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="GUI_USE_LATENCY" type="string">
           <ipxact:name>GUI_USE_LATENCY</ipxact:name>
