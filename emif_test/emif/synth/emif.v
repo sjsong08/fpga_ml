@@ -37,7 +37,7 @@ module emif (
 		output wire         amm_readdatavalid_0  //                 .readdatavalid,     Indicates whether read data is valid
 	);
 
-	emif_altera_emif_c10_181_g37h7ua emif_c10_0 (
+	emif_altera_emif_c10_181_yxxmnvi emif_c10_0 (
 		.global_reset_n      (global_reset_n),      //   input,    width = 1,   global_reset_n.reset_n
 		.pll_ref_clk         (pll_ref_clk),         //   input,    width = 1,      pll_ref_clk.clk
 		.oct_rzqin           (oct_rzqin),           //   input,    width = 1,              oct.oct_rzqin

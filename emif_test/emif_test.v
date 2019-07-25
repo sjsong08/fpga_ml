@@ -27,13 +27,10 @@ module emif_test(
 			output          ddr3_rstn          , // RESETn
 			input           ddr3_rzq             // RZQ
 );
+
+parameter burstlength = 6;
+
 wire rst;
-wire clk200m;
-iopll1 pll01 (
-			.rst			(rst),
-			.refclk		(clk100m),
-			.outclk_0	(clk200m)
-);
 
 
 wire local_cal_success, local_cal_fail;
@@ -44,11 +41,14 @@ wire amm_rddatavalild;
 
 reg amm_rd, amm_wr;
 reg [24:0] amm_addr;
-//reg [320:0] amm_wrdata;
-wire [319:0] amm_wrdata = {40{8'hff}};
+//reg [319:0] amm_wrdata;
+wire [319:0] amm_wrdata;// = {40{8'b0011_1111}};
 reg [6:0] amm_burstcnt;
 wire [39:0] amm_byteenable;
 assign amm_byteenable = 40'hff_ffff_ffff;
+
+
+
 emif emif01(
 			.global_reset_n		(!rst), 	//in
 			.pll_ref_clk			(refclk_emif_p),	//in
@@ -88,14 +88,32 @@ emif emif01(
 			.amm_byteenable_0		(amm_byteenable)	//in
 );
 
+
+
+
 wire bt1, bt2;
 issp		issp01(
 			.source		({rst, bt1, bt2}), //2..0
-			.probe		({amm_ready, amm_wr, amm_rd, amm_rddatavalid, amm_rddata, cnt[16]})	//323..0
+			.probe		({amm_ready, amm_wr, amm_rd, amm_rddatavalid, emif_usr_reset_n, amm_rddata, amm_burstcnt, cnt})	//323..0
 );
 
+
+datacheck dtck01(
+			.clk			(emif_usr_clk),
+			.rst			(rst),
+			.bt1			(bt1),
+			.amm_rddatavalid	(amm_rddatavalid),
+			.amm_rddata			(amm_rddata),
+			.cnt					(cnt),
+			
+			.amm_wrdata			(amm_wrdata),
+			.check				(user_led[0])
+);
+
+
+
 reg [19:0] cnt;
-always@(posedge emif_usr_clk)
+always@(negedge emif_usr_clk)
 begin
 	if(rst)
 	begin
@@ -104,38 +122,46 @@ begin
 	
 	else
 	begin		
+		
 		if(bt1)
 		begin
-			if(cnt==20'd100000)
+			if(amm_ready)
 			begin
-				cnt <= 20'd100001;
+				if(cnt==20'd1000)
+				begin
+					cnt <= 20'd1001;
+				end
+				
+				else if(cnt <= 20'd1000)
+				begin
+					cnt <= cnt + 20'd1;
+				end
+				
+				else
+					cnt <= cnt;
+			end
+		end
+
+
+		else if(bt2)
+		begin
+			if(cnt==20'd1000)
+			begin
+				cnt <= 20'd1001;
 			end
 			
-			else if(cnt <= 20'd100000)
+			else if(cnt <= 20'd1000)
 			begin
 				cnt <= cnt + 20'd1;
 			end
-			
 			else
 				cnt <= cnt;
 		end
 		
-		else if(bt2)
-		begin
-			if(cnt==20'd100000)
-			begin
-				cnt <= 20'd100001;
-			end
-			
-			else if(cnt <= 20'd100000)
-			begin
-				cnt <= cnt + 20'd1;
-			end
-			else
-				cnt <= cnt;
-		end
 		else
-			cnt <= cnt;
+		begin
+			cnt <= 20'd0;
+		end
 	end
 	
 end
@@ -155,18 +181,38 @@ begin
 			if(cnt == 20'd1)
 			begin
 				amm_wr <= 1'b1;
-				amm_addr <= 25'd1;
-				amm_burstcnt <= 7'd1;
+				amm_addr <= 25'd0;
+				amm_burstcnt <= burstlength;
 			end
 			
 			else if(cnt == 20'd2)
 			begin
 				amm_wr <= 1'b1;
-				//amm_addr <= 25'hz;
-				amm_burstcnt <= 7'd0;
+				amm_addr <= 25'hz;
+				amm_burstcnt <= 7'hz;
 			end
 				
-			else if(cnt == 20'd100000)
+			else if(cnt == burstlength+20'd1)
+			begin
+				amm_wr <= 1'b0;
+				amm_addr <= 25'd0;
+			end
+			
+			
+			
+			else if(cnt == burstlength+20'd2)
+			begin
+				amm_wr <= 1'b1;
+				amm_addr <= 25'd0 + burstlength;
+				amm_burstcnt <= burstlength;
+			end
+			else if(cnt == burstlength+20'd3)
+			begin
+				amm_wr <= 1'b1;
+				amm_addr <= 25'hz;
+				amm_burstcnt <= 7'hz;
+			end
+			else if(cnt == burstlength*2+20'd2)
 			begin
 				amm_wr <= 1'b0;
 				amm_addr <= 25'd0;
@@ -186,21 +232,29 @@ begin
 			if(cnt == 20'd1)
 			begin
 				amm_rd <= 1'b1;
-				amm_addr <= 25'd1;
-				amm_burstcnt <= 7'd1;
+				amm_addr <= 25'd0;
+				amm_burstcnt <= burstlength;
 			end
 			
 			else if(cnt == 20'd2)
 			begin
-				amm_rd <= 1'b1;
-				//amm_addr <= 25'hz;
-				amm_burstcnt <= 7'd0;
+				amm_rd <= 1'b0;
+				amm_addr <= 25'hz;
+				amm_burstcnt <= 7'hz;
 			end
 			
-			else if(cnt == 20'd100000)
+			else if(cnt == 20'd11)
+			begin
+				amm_rd <= 1'b1;
+				amm_addr <= 25'd0 + burstlength;	
+				amm_burstcnt <= burstlength;
+			end
+			
+			else if(cnt == 20'd12)
 			begin
 				amm_rd <= 1'b0;
-				amm_addr <= 25'd0;
+				amm_addr <= 25'hz;
+				amm_burstcnt <= 7'hz;
 			end
 			
 			else
@@ -220,12 +274,8 @@ begin
 		end
 	end
 end
-		
-stp stp01(
-		.acq_clk		(clk100m),
-		.acq_data_in({amm_ready, amm_wr, amm_rd, amm_rddatavalid, cnt[16], amm_rddata[4:0]}),
-		.acq_trigger_in	(bt1)
-);
+
+
 
 
 endmodule
