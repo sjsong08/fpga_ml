@@ -1,0 +1,31 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1
+vbram_1port
+!s110 1563956956
+!i10b 1
+!s100 NogbGCobz5`Ngm4P][zo[3
+I=M3nXh8@<kaiNb=YP<HPj0
+VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1563942577
+8C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram_1port/sim/bram_1port.v
+FC:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram_1port/sim/bram_1port.v
+L0 6
+OV;L;10.6d;65
+r1
+!s85 0
+31
+!s108 1563956956.000000
+!s107 C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram_1port/sim/bram_1port.v|
+!s90 -reportprogress|300|C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram_1port/sim/bram_1port.v|-work|bram_1port|
+!i113 1
+o-work bram_1port
+tCvgOpt 0

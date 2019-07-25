@@ -1,0 +1,32 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1
+vfixedDSP_altera_c10gx_native_fixed_point_dsp_181_usubljq
+!s110 1563956955
+!i10b 1
+!s100 2egEHBk7lGdR?<^==0hJc1
+I4044aRc^zUP?M?EH?MHg83
+VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1561970671
+8C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/fixedDSP/altera_c10gx_native_fixed_point_dsp_181/sim/fixedDSP_altera_c10gx_native_fixed_point_dsp_181_usubljq.v
+FC:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/fixedDSP/altera_c10gx_native_fixed_point_dsp_181/sim/fixedDSP_altera_c10gx_native_fixed_point_dsp_181_usubljq.v
+L0 31
+OV;L;10.6d;65
+r1
+!s85 0
+31
+!s108 1563956955.000000
+!s107 C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/fixedDSP/altera_c10gx_native_fixed_point_dsp_181/sim/fixedDSP_altera_c10gx_native_fixed_point_dsp_181_usubljq.v|
+!s90 -reportprogress|300|C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/fixedDSP/altera_c10gx_native_fixed_point_dsp_181/sim/fixedDSP_altera_c10gx_native_fixed_point_dsp_181_usubljq.v|-work|altera_c10gx_native_fixed_point_dsp_181|
+!i113 1
+o-work altera_c10gx_native_fixed_point_dsp_181
+tCvgOpt 0
+nfixed@d@s@p_altera_c10gx_native_fixed_point_dsp_181_usubljq

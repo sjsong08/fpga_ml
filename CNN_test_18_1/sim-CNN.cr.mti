@@ -1,0 +1,22 @@
+C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/sim-mid_bram.v {1 {vlog -work work -stats=none C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/sim-mid_bram.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.6d Compiler 2018.02 Feb 24 2018
+-- Compiling module mid_bram
+
+Top level modules:
+	mid_bram
+
+} {} {}} C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/sim-cnn.v {1 {vlog -work work -stats=none {C:\intelFPGA_pro\18.1\Projects\fpga_ml\CNN_test_18_1\sim-cnn.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.6d Compiler 2018.02 Feb 24 2018
+-- Compiling module cnn
+
+Top level modules:
+	cnn
+
+} {} {}} C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/sim-test_bram.v {1 {vlog -work work -stats=none {C:\intelFPGA_pro\18.1\Projects\fpga_ml\CNN_test_18_1\sim-test_bram.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.6d Compiler 2018.02 Feb 24 2018
+-- Compiling module test_bram
+
+Top level modules:
+	test_bram
+
+} {} {}}

@@ -1,0 +1,32 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1
+vfixedDSP
+!s110 1563956955
+!i10b 1
+!s100 41l4Qi2IacHZm0O;H8QID2
+ILOAiF6XCc3:EYY2@<i1md0
+VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1561970671
+8C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/fixedDSP/sim/fixedDSP.v
+FC:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/fixedDSP/sim/fixedDSP.v
+L0 6
+OV;L;10.6d;65
+r1
+!s85 0
+31
+!s108 1563956955.000000
+!s107 C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/fixedDSP/sim/fixedDSP.v|
+!s90 -reportprogress|300|C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/fixedDSP/sim/fixedDSP.v|-work|fixedDSP|
+!i113 1
+o-work fixedDSP
+tCvgOpt 0
+nfixed@d@s@p

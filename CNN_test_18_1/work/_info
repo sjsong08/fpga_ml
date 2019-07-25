@@ -1,0 +1,178 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/intelFPGA_pro/18.1
+vbram
+!s110 1561969048
+!i10b 1
+!s100 En8OMU`Gb:Mj;U4IkTfIX2
+I[oclzLZnm[@eog43fL?X60
+Z0 VDg1SIo80bB@j0V0VzS_@n1
+Z1 dC:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1
+Z2 w1561962982
+8C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/sim/bram.v
+FC:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/sim/bram.v
+L0 6
+Z3 OV;L;10.6d;65
+r1
+!s85 0
+31
+!s108 1561969048.000000
+!s107 C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/sim/bram.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/sim/bram.v|
+!i113 1
+Z4 o-work work
+Z5 tCvgOpt 0
+vbram_ram_2port_181_czrnpby
+Z6 !s110 1561968962
+!i10b 1
+!s100 VVMMjfIToTWiX1NZVb:0k3
+I]K2lJN:cM9TE`ieiPP9LC3
+R0
+R1
+R2
+8C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_181/synth/bram_ram_2port_181_czrnpby.v
+FC:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_181/synth/bram_ram_2port_181_czrnpby.v
+Z7 L0 18
+R3
+r1
+!s85 0
+31
+Z8 !s108 1561968962.000000
+!s107 C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_181/synth/bram_ram_2port_181_czrnpby.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_181/synth/bram_ram_2port_181_czrnpby.v|
+!i113 1
+R4
+R5
+vbram_ram_2port_181_ssc23zq
+R6
+!i10b 1
+!s100 HX4>LH0a?Z>LK@faho^E^3
+I75hS3Zgz<aS_P<_1ke30Q2
+R0
+R1
+R2
+8C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_181/synth/bram_ram_2port_181_ssc23zq.v
+FC:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_181/synth/bram_ram_2port_181_ssc23zq.v
+R7
+R3
+r1
+!s85 0
+31
+R8
+!s107 C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_181/synth/bram_ram_2port_181_ssc23zq.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_181/synth/bram_ram_2port_181_ssc23zq.v|
+!i113 1
+R4
+R5
+vbram_ram_2port_181_u6gftaa
+R6
+!i10b 1
+!s100 WF1L:ad4AUPec06GXez:40
+I8Ii0hEB_KTdF932MWz@mh2
+R0
+R1
+w1561967353
+8C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_181/synth/bram_ram_2port_181_u6gftaa.v
+FC:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_181/synth/bram_ram_2port_181_u6gftaa.v
+R7
+R3
+r1
+!s85 0
+31
+R8
+!s107 C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_181/synth/bram_ram_2port_181_u6gftaa.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_181/synth/bram_ram_2port_181_u6gftaa.v|
+!i113 1
+R4
+R5
+vbram_ram_2port_191_w2okdta
+!s110 1561968875
+!i10b 1
+!s100 ]YUKhYfEmB_1SQg`CXR5[3
+IIhb:DJD0NgYj8f9O4`3J51
+R0
+R1
+R2
+8C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_191/synth/bram_ram_2port_191_w2okdta.v
+FC:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_191/synth/bram_ram_2port_191_w2okdta.v
+R7
+R3
+r1
+!s85 0
+31
+!s108 1561968875.000000
+!s107 C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_191/synth/bram_ram_2port_191_w2okdta.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/bram/ram_2port_191/synth/bram_ram_2port_191_w2okdta.v|
+!i113 1
+R4
+R5
+vcnn
+Z9 !s110 1561979921
+!i10b 1
+!s100 jLVlaA?3i@1PWQ3IhMQ350
+IMmXk6e@?EhCfCG8CO]PQ30
+R0
+R1
+R2
+8C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/sim-cnn.v
+FC:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/sim-cnn.v
+L0 1
+R3
+r1
+!s85 0
+31
+Z10 !s108 1561979921.000000
+!s107 C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/sim-cnn.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/sim-cnn.v|
+!i113 1
+R4
+R5
+vconv_layer
+R9
+!i10b 1
+!s100 aiGXQ2^IT9ijL96MbScg:1
+IWoQMnge@44j3XDH6igoXo2
+R0
+R1
+w1561968812
+8C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/sim-conv_layer.v
+FC:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/sim-conv_layer.v
+L0 5
+R3
+r1
+!s85 0
+31
+R10
+!s107 C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/sim-conv_layer.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/intelFPGA_pro/18.1/Projects/fpga_ml/CNN_test_18_1/sim-conv_layer.v|
+!i113 1
+R4
+R5
+vtb
+!s110 1561965897
+!i10b 1
+!s100 af@H[1l45CXZ<C1c]CcmI1
+IJ=LczF:U77CCcho?_fMBI3
+R0
+R1
+w1561965893
+8C:\intelFPGA_pro\18.1\Projects\fpga_ml\CNN_test_18_1\testing_tb.v
+FC:\intelFPGA_pro\18.1\Projects\fpga_ml\CNN_test_18_1\testing_tb.v
+L0 3
+R3
+r1
+!s85 0
+31
+!s108 1561965897.000000
+!s107 C:\intelFPGA_pro\18.1\Projects\fpga_ml\CNN_test_18_1\testing_tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:\intelFPGA_pro\18.1\Projects\fpga_ml\CNN_test_18_1\testing_tb.v|
+!i113 1
+R4
+R5

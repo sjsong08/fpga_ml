@@ -1,0 +1,62 @@
+module CNN_test(
+	input clk,
+	
+	output resulta
+
+);
+
+
+
+
+wire [23:0] in0_q, in1_q, in2_q, in3_q;
+wire in0_rden, in1_rden, in2_rden, in3_rden;
+wire [20:0] resulta, resultb, resultc;
+wire fin_rd, de_out;
+
+
+test_bram test_bram(
+	.clk		(clk),
+	.RESET		(rst),
+
+	.start_wr	(high),
+	.de_in		(de_out1),
+
+	.in0_rden	(in0_rden),
+	.in1_rden	(in1_rden),
+	.in2_rden	(in2_rden),
+	.in3_rden 	(in3_rden),
+	
+	.de_out		(de_out0),
+	.in0_q		(in0_q),
+	.in1_q		(in1_q),
+	.in2_q		(in2_q),
+	.in3_q		(in3_q)
+);
+
+
+
+conv_layer conv1(
+	.clk		(clk),
+	.RESET		(rst),
+	.start_rd	(start_rd),
+	.in0_q		(in0_q),	
+	.in1_q		(in1_q),	
+	.in2_q		(in2_q),	
+	.in3_q		(in3_q),
+	
+	.in0_rden	(in0_rden),
+	.in1_rden	(in1_rden),
+	.in2_rden	(in2_rden),
+	.in3_rden 	(in3_rden),
+	.result_0	(resulta),
+	.result_1	(resultb),
+	.result_2	(resultc),
+	.fin_rd		(fin_rd),
+	.de_out		(de_out)
+);
+
+
+
+assign in = {9{16'd1}};
+
+endmodule
