@@ -8,10 +8,10 @@ module test_bram(
 	input wire start_wr,
 
 	input wire de_in,
-	input wire [4:0] rd_addr,
+	input wire [10:0] rd_addr,
 	input wire in0_rden, in1_rden, in2_rden, in3_rden,
 	
-	output reg de_out,
+	output wire de_out,
 	output wire [23:0] in0_q, in1_q, in2_q, in3_q
 );
 
@@ -25,7 +25,7 @@ parameter image_height = 11'd28;
 ///////////////////////////////////////////////////////////////////////////////////
 
 reg in0_wren, in1_wren, in2_wren, in3_wren;
-reg [4:0] in_addr;
+reg [10:0] wr_addr;
 
 
 
@@ -49,7 +49,9 @@ begin
 end
 
 initial
-cnt_de <= 5'd0;
+cnt_de <= 12'd0;
+
+assign de_out = de_del1 & de_del6;
 
 always @(posedge clk)
 begin
@@ -71,16 +73,18 @@ always@(negedge clk)
 begin
 	if(RESET)
 	begin
-		in_addr <= 5'd0;
+		wr_addr <= 11'd0;
 		in0_wren <= 1'b0;
 		in1_wren <= 1'b0;
 		in2_wren <= 1'b0;
 		in3_wren <= 1'b0;
 	end
+	else
+	begin
 		if (de_in)
 		begin
-			in_addr <= in_addr + 5'd1;
-			
+			wr_addr <= wr_addr + 11'd1;
+		
 			if(cnt_de[1:0] == 2'b00)
 			begin
 				in0_wren <= 1'b0; 
@@ -108,21 +112,20 @@ begin
 				in1_wren <= 1'b0; 
 				in2_wren <= 1'b1; 
 				in3_wren <= 1'b0; 
-			end
-
+			end	
 		end
-	else
-	begin
-		in_addr <= 6'd0;
-		in0_wren <= 1'b0;
-		in1_wren <= 1'b0;
-		in2_wren <= 1'b0;
-		in3_wren <= 1'b0;
+		else
+		begin
+			wr_addr <= 11'd0;
+			in0_wren <= 1'b0;
+			in1_wren <= 1'b0;
+			in2_wren <= 1'b0;
+			in3_wren <= 1'b0;
+		end	
 	end
 end
 
 
-wire [62:0] in0__, in1__, in2__, in3__;
 
 reg [23:0] in_0, in_1, in_2, in_3;
 
@@ -143,59 +146,55 @@ begin
 		in_3 <= 24'd4;
 	end
 end
-wire [4:0] addr0, addr1, addr2, addr3;
+wire [10:0] addr0, addr1, addr2, addr3;
 
 
-assign addr0 = (in0_wren) ? in_addr : rd_addr;
-assign addr1 = (in1_wren) ? in_addr : rd_addr;
-assign addr2 = (in2_wren) ? in_addr : rd_addr;
-assign addr3 = (in3_wren) ? in_addr : rd_addr;
+assign addr0 = (in0_wren) ? wr_addr : rd_addr;
+assign addr1 = (in1_wren) ? wr_addr : rd_addr;
+assign addr2 = (in2_wren) ? wr_addr : rd_addr;
+assign addr3 = (in3_wren) ? wr_addr : rd_addr;
 
 
-bram_1port bram_in0 (
+bram_24 bram_in0 (
 	.clock	(clk),
 	.wren	(in0_wren),
 	.rden	(in0_rden),
 	.address(addr0),
 	.data	(in_0),
 	
-	.q		(in0__)
+	.q		(in0_q)
 );
 
-bram_1port bram_in1 (
+bram_24 bram_in1 (
 	.clock	(clk),
 	.wren	(in1_wren),
 	.rden	(in1_rden),
 	.address(addr1),
 	.data	(in_1),
 	
-	.q		(in1__)
+	.q		(in1_q)
 );
 
-bram_1port bram_in2 (
+bram_24 bram_in2 (
 	.clock	(clk),
 	.wren	(in2_wren),
 	.rden	(in2_rden),
 	.address(addr2),
 	.data	(in_2),
 	
-	.q		(in2__)
+	.q		(in2_q)
 );
 
-bram_1port bram_in3 (
+bram_24 bram_in3 (
 	.clock	(clk),
 	.wren	(in3_wren),
 	.rden	(in3_rden),
 	.address(addr3),
 	.data	(in_3),
 	
-	.q		(in3__)
+	.q		(in3_q)
 );
 
-assign in0_q = in0__[23:0];
-assign in1_q = in1__[23:0];
-assign in2_q = in2__[23:0];
-assign in3_q = in3__[23:0];
 
 		
 endmodule		

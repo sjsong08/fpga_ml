@@ -5,42 +5,45 @@
 module conv_layer(
 	input wire clk,
 	input wire RESET,
+	
 	input wire start_rd,
-	input wire [8*3-1:0] in0_q, in1_q, in2_q, in3_q,
-	output reg [4:0] in_addr,
-	output reg in0_rden, in1_rden, in2_rden, in3_rden, 
-	output wire [62:0] result,
+	input wire [23:0] in0_q, in1_q, in2_q, in3_q,
+	
+	output reg de,
+	output reg [10:0] in_addr,
+	output reg in0_rden, in1_rden, in2_rden, in3_rden,
+	output wire [20:0] result_0, result_1, result_2,
 	output reg fin_rd,
 	output wire de_out
 );
 
 parameter bit_depth = 8;
-parameter image_width = 12'd28;
+parameter image_width = 11'd28;
 parameter image_height = 11'd28;
 
-reg [11:0] cnt_clk;
+reg [10:0] cnt_clk;
 initial 
-cnt_clk <= 12'd0;
+cnt_clk <= 11'd0;
 
 
 always @(posedge clk)
 begin
 	if (start_rd)
 	begin
-		if (cnt_clk == image_width - 12'd1)
-			cnt_clk <= 12'd0;
+		if (cnt_clk == image_width + 11'd10)
+			cnt_clk <= 11'd0;
 		else
-			cnt_clk <= cnt_clk + 12'd1;
+			cnt_clk <= cnt_clk + 11'd1;
 	end
 
 	else
 		cnt_clk <= 12'd0;
 end
 
-reg de;
+
 always @(posedge clk)
 begin
-	if (cnt_clk >= 12'd10 && cnt_clk <= image_width + 12'd10 - 12'd1)
+	if (cnt_clk >= 11'd10 && cnt_clk <= image_width + 11'd10 - 11'd1)
 		de <= 1'b1;
 	else
 		de <= 1'b0;
@@ -145,7 +148,6 @@ begin
 				in2_rden <= 1'b0;
 				in3_rden <= 1'b1;
 			end
-
 		end
 		else
 		begin
@@ -275,13 +277,17 @@ end
 		
 /////////////////////////////////////////////////////////////////////////////////////////
 
-reg [bit_depth-1:0] w0, w1, w2;
+reg [17:0] w0, w1, w2;
 
 initial
 begin
-	w0 <= 'b1;
-	w1 <= 'b1;
-	w2 <= 'b1;
+//	w0 <= 18'b11_1111_1111_1111_1111;
+//	w1 <= 18'b00_0000_0000_0000_0001;
+//	w2 <= 18'b00_0000_0000_0000_0001;
+	
+	w0 <= 18'b00_0000_0000_0000_0001;
+	w1 <= 18'b00_0000_0000_0000_0001;
+	w2 <= 18'b00_0000_0000_0000_0001;
 end
 
 
@@ -488,7 +494,7 @@ cnn ch_c_2(
 	.result(resultc2)
 );
 
-wire [20:0] result_0, result_1, result_2;
+
 
 para_add padd_0(
 	.data0x(resulta0),
@@ -513,23 +519,4 @@ para_add padd_2(
 );
 
 
-assign result = {result_0, result_1, result_2};
-
-wire [8:0] in0R, in0G, in0B, in1R, in1G, in1B, in2R, in2G, in2B, in3R, in3G, in3B;
-
-assign in0R = in0_q[bit_depth-1:0];
-assign in0G = in0_q[bit_depth*2-1:bit_depth];
-assign in0B = in0_q[bit_depth*3-1:bit_depth*2];
-
-assign in1R = in1_q[bit_depth-1:0];
-assign in1G = in1_q[bit_depth*2-1:bit_depth];
-assign in1B = in1_q[bit_depth*3-1:bit_depth*2];
-
-assign in2R = in2_q[bit_depth-1:0];
-assign in2G = in2_q[bit_depth*2-1:bit_depth];
-assign in2B = in2_q[bit_depth*3-1:bit_depth*2];
-
-assign in3R = in3_q[bit_depth-1:0];
-assign in3G = in3_q[bit_depth*2-1:bit_depth];
-assign in3B = in3_q[bit_depth*3-1:bit_depth*2];
 endmodule

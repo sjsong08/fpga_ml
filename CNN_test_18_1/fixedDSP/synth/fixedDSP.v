@@ -11,7 +11,7 @@ module fixedDSP (
 		output wire [63:0] resulta  // resulta.resulta
 	);
 
-	fixedDSP_altera_c10gx_native_fixed_point_dsp_181_usubljq c10gx_native_fixed_point_dsp_0 (
+	fixedDSP_altera_c10gx_native_fixed_point_dsp_181_x2a5njy c10gx_native_fixed_point_dsp_0 (
 		.ay      (ay),      //   input,  width = 18,      ay.ay
 		.by      (by),      //   input,  width = 18,      by.by
 		.ax      (ax),      //   input,  width = 18,      ax.ax

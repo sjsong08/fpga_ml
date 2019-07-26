@@ -2,7 +2,7 @@
 
 module cnn(
 	input [7:0] in0, in1, in2, in3, in4, in5, in6, in7, in8,
-	input [7:0] w0, w1, w2, w3, w4, w5, w6, w7, w8, 
+	input [17:0] w0, w1, w2, w3, w4, w5, w6, w7, w8, 
 	output [18:0] result
 );
 
@@ -10,39 +10,39 @@ wire [63:0] result01, result23, result45, result67, result8;
 
 fixedDSP conv0_01(
 	.ax		({8'b00000000,2'b00, in0}),
-	.ay		({8'b00000000,2'b00, w0}),
+	.ay		({w0}),
 	.bx		({8'b00000000,2'b00, in1}),
-	.by		({8'b00000000,2'b00, w1}),
+	.by		({w1}),
 	.resulta	(result01)
 );
 
 fixedDSP conv0_23(
 	.ax		({8'b00000000,2'b00, in2}),
-	.ay		({8'b00000000,2'b00, w2}),
+	.ay		({w2}),
 	.bx		({8'b00000000,2'b00, in3}),
-	.by		({8'b00000000,2'b00, w3}),
+	.by		({w3}),
 	.resulta	(result23)
 );
 
 fixedDSP conv0_45(
 	.ax		({8'b00000000,2'b00, in4}),
-	.ay		({8'b00000000,2'b00, w4}),
+	.ay		({w4}),
 	.bx		({8'b00000000,2'b00, in5}),
-	.by		({8'b00000000,2'b00, w5}),
+	.by		({w5}),
 	.resulta	(result45)
 );
 
 fixedDSP conv0_67(
 	.ax		({8'b00000000,2'b00, in6}),
-	.ay		({8'b00000000,2'b00, w6}),
+	.ay		({w6}),
 	.bx		({8'b00000000,2'b00, in7}),
-	.by		({8'b00000000,2'b00, w7}),
+	.by		({w7}),
 	.resulta	(result67)
 );
 
 fixedDSP conv0_8(
 	.ax		({8'b00000000,2'b00, in8}),
-	.ay		({8'b00000000,2'b00, w8}),
+	.ay		({w8}),
 	.bx		(18'd0),
 	.by		(18'd0),
 	.resulta	(result8)
