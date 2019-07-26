@@ -14,6 +14,7 @@ wire [20:0] conv1_qa, conv1_qb, conv1_qc;
 
 wire fin_rd, de_out1;
 wire [10:0] rd_addr;
+wire conv1_str_wr;
 
 
 conv_layer conv1(
@@ -31,6 +32,7 @@ conv_layer conv1(
 	.in3_rden 	(in3_rden),
 	.in_addr	(rd_addr),
 
+	.start_wr	(conv1_str_wr),
 	.result_0	(conv1_qa),
 	.result_1	(conv1_qb),	
 	.result_2	(conv1_qc),
@@ -40,25 +42,24 @@ conv_layer conv1(
 
 wire de_out2;
 wire [20:0]	br1_qa_0;
-wire [20:0]   br1_qa_1;
-wire [20:0]   br1_qa_2;
-wire [20:0]   br1_qa_3;
+wire [20:0]   	br1_qa_1;
+wire [20:0]   	br1_qa_2;
+wire [20:0]   	br1_qa_3;
 wire [20:0]  	br1_qb_0;
 wire [20:0]  	br1_qb_1;
 wire [20:0]  	br1_qb_2;
 wire [20:0]	br1_qb_3;
 wire [20:0]   	br1_qc_0;
-wire [20:0]  	 br1_qc_1;
-wire [20:0]  	 br1_qc_2;
-wire [20:0]   br1_qc_3;
+wire [20:0]  	br1_qc_1;
+wire [20:0]  	br1_qc_2;
+wire [20:0]   	br1_qc_3;
 
 wire br1_fin;
-
 mid_bram mid_bram1(
 	.clk		(clk),
 	.RESET		(rst),
 
-	.start_wr	(fin_rd),
+	.start_wr	(conv1_str_wr),
 	.in_a		(conv1_qa),
 	.in_b		(conv1_qb),
 	.in_c		(conv1_qc),
@@ -89,12 +90,12 @@ mid_bram mid_bram1(
 	
 );
 
-wire [20:0] d0_ca = (bram_toggle) br1_qa_2 : br1_qa_0;
-wire [20:0] d1_ca = (bram_toggle) br1_qa_3 : br1_qa_1;
-wire [20:0] d0_cb = (bram_toggle) br1_qb_2 : br1_qb_0;
-wire [20:0] d1_cb = (bram_toggle) br1_qb_2 : br1_qb_1;
-wire [20:0] d0_cc = (bram_toggle) br1_qc_2 : br1_qc_0;
-wire [20:0] d1_cc = (bram_toggle) br1_qc_2 : br1_qc_1;
+wire [20:0] d0_ca = (bram_toggle) ? br1_qa_2 : br1_qa_0;
+wire [20:0] d1_ca = (bram_toggle) ? br1_qa_3 : br1_qa_1;
+wire [20:0] d0_cb = (bram_toggle) ? br1_qb_2 : br1_qb_0;
+wire [20:0] d1_cb = (bram_toggle) ? br1_qb_2 : br1_qb_1;
+wire [20:0] d0_cc = (bram_toggle) ? br1_qc_2 : br1_qc_0;
+wire [20:0] d1_cc = (bram_toggle) ? br1_qc_2 : br1_qc_1;
 
 wire mp0_en;
 wire [10:0] mp0_rd_addr;
@@ -103,11 +104,11 @@ wire mp0_wren;
 wire [1:0] mp0_bramcnt;
 wire [BD-1:0] mp0_d_a, mp0_d_b, mp0_d_c;
 wire mp0_next_st;
-
+/*
 maxPool #(.BD(BD)) maxPool1(
 	.clk		(clk),
 	.reset		(reset),
-	.ready_in	(ready),
+	.ready_in	(br1_fin),
 	.q0_c0		(d0_ca),
 	.q1_c0		(d1_ca),
 	.q0_c1		(d0_cb),
@@ -124,13 +125,14 @@ maxPool #(.BD(BD)) maxPool1(
 	.d_c1		(mp0_d_b),
 	.d_c2		(mp0_d_c),
 
-	.bram_num	(mp0_bramcnt)
+	.bram_num	(mp0_bramcnt),
+	.next_st	(mp0_next_st)
 );
 
-wire mp0_wren0 = (mp0_bramcnt==2'd0) mp0_wren : 1'hz;
-wire mp0_wren1 = (mp0_bramcnt==2'd1) mp0_wren : 1'hz;
-wire mp0_wren2 = (mp0_bramcnt==2'd2) mp0_wren : 1'hz;
-wire mp0_wren3 = (mp0_bramcnt==2'd3) mp0_wren : 1'hz;
+wire mp0_wren0 = (mp0_bramcnt==2'd0) ? mp0_wren : 1'hz;
+wire mp0_wren1 = (mp0_bramcnt==2'd1) ? mp0_wren : 1'hz;
+wire mp0_wren2 = (mp0_bramcnt==2'd2) ? mp0_wren : 1'hz;
+wire mp0_wren3 = (mp0_bramcnt==2'd3) ? mp0_wren : 1'hz;
 
 wire [BD-1:0] a,b,c,d,e,f,g,h,i,j,k,l;
 
@@ -158,5 +160,5 @@ brams_mp0_conv1 #(.BD(BD)) brams_mp0_conv1(
 	.q3_b		(k),
 	.q3_c		(l)
 );
-
+*/
 endmodule

@@ -10,6 +10,7 @@ module conv_layer(
 	input wire [23:0] in0_q, in1_q, in2_q, in3_q,
 	
 	output reg de,
+	output reg start_wr,
 	output reg [10:0] in_addr,
 	output reg in0_rden, in1_rden, in2_rden, in3_rden,
 	output wire [20:0] result_0, result_1, result_2,
@@ -37,7 +38,7 @@ begin
 	end
 
 	else
-		cnt_clk <= 12'd0;
+		cnt_clk <= 11'd0;
 end
 
 
@@ -67,11 +68,11 @@ begin
 	de_del6 <= de_del5;
 end
 
-assign de_out = de_del1 & de_del6;
+assign de_out = de_del4 & de_del6;
 
 always @(posedge clk)
 begin
-	if (de_del2==1'b0 && de_del3==1'b1)
+	if (de_del5==1'b0 && de_del6==1'b1)
 		fin_rd <= 1'b1;
 	else
 		fin_rd <= 1'b0;
@@ -97,7 +98,13 @@ begin
 		cnt_de <= cnt_de;
 end
 
-
+always @(posedge clk)
+begin
+	if (cnt_de == 12'd1)
+		start_wr <= 1'b1;
+	else if (cnt_de == 12'd0)
+		start_wr <= 1'b0;
+end
 
 
 
@@ -107,7 +114,7 @@ always@(negedge clk)
 begin
 	if(RESET)
 	begin
-		in_addr <= 5'd0;
+		in_addr <= 11'd0;
 		in0_rden <= 1'b0;
 		in1_rden <= 1'b0;
 		in2_rden <= 1'b0;
@@ -118,40 +125,40 @@ begin
 	begin
 		if (de)
 		begin
-			in_addr <= in_addr + 5'd1;
+			in_addr <= in_addr + 11'd1;
 			
 			if(cnt_de[1:0] == 2'b00)
-			begin
-				in0_rden <= 1'b1;
-				in1_rden <= 1'b1;
-				in2_rden <= 1'b1;
-				in3_rden <= 1'b0;
-			end
-			else if(cnt_de[1:0] == 2'b01)
 			begin
 				in0_rden <= 1'b0;
 				in1_rden <= 1'b1;
 				in2_rden <= 1'b1;
 				in3_rden <= 1'b1;
 			end
-			else if(cnt_de[1:0] == 2'b10)
+			else if(cnt_de[1:0] == 2'b01)
 			begin
 				in0_rden <= 1'b1;
 				in1_rden <= 1'b0;
 				in2_rden <= 1'b1;
 				in3_rden <= 1'b1;
 			end
-			else if(cnt_de[1:0] == 2'b11)
+			else if(cnt_de[1:0] == 2'b10)
 			begin
 				in0_rden <= 1'b1;
 				in1_rden <= 1'b1;
 				in2_rden <= 1'b0;
 				in3_rden <= 1'b1;
 			end
+			else if(cnt_de[1:0] == 2'b11)
+			begin
+				in0_rden <= 1'b1;
+				in1_rden <= 1'b1;
+				in2_rden <= 1'b1;
+				in3_rden <= 1'b0;
+			end
 		end
 		else
 		begin
-			in_addr <= 5'd0;
+			in_addr <= 11'd0;
 			in0_rden <= 1'b0;
 			in1_rden <= 1'b0;
 			in2_rden <= 1'b0;
@@ -160,7 +167,7 @@ begin
 	end
 	else
 	begin
-		in_addr <= 5'd0;
+		in_addr <= 11'd0;
 		in0_rden <= 1'b0;
 		in1_rden <= 1'b0;
 		in2_rden <= 1'b0;
@@ -182,27 +189,27 @@ begin
 	
 		if(cnt_de[1:0] == 2'b00)
 		begin
-			in02 <= in0_q;
-			in12 <= in1_q;
-			in22 <= in2_q;
+			in02 <= in1_q;
+			in12 <= in2_q;
+			in22 <= in3_q;
 		end
 		else if(cnt_de[1:0] == 2'b01)
 		begin
-			in02 <= in1_q;
-			in12 <= in2_q;
-		        in22 <= in3_q;	
-		end
-		else if(cnt_de[1:0] == 2'b10)
-		begin
 			in02 <= in2_q;
 			in12 <= in3_q;
-		        in22 <= in0_q;
+		        in22 <= in0_q;	
 		end
-		else if(cnt_de[1:0] == 2'b11)
+		else if(cnt_de[1:0] == 2'b10)
 		begin
 			in02 <= in3_q;
 			in12 <= in0_q;
 		        in22 <= in1_q;
+		end
+		else if(cnt_de[1:0] == 2'b11)
+		begin
+			in02 <= in0_q;
+			in12 <= in1_q;
+		        in22 <= in2_q;
 		end
 	end
 	else
@@ -218,7 +225,7 @@ reg [bit_depth*9-1:0] in_a;
 
 always @(posedge clk)
 begin
-	if (de_del5 && de)
+	if (de_del5 && de_del3)
 	begin
 		in_a[bit_depth*9-1:bit_depth*8] <= in00[bit_depth*3-1:bit_depth*2];
 		in_a[bit_depth*8-1:bit_depth*7] <= in01[bit_depth*3-1:bit_depth*2];
@@ -238,7 +245,7 @@ reg [bit_depth*9-1:0] in_b;
 
 always @(posedge clk)
 begin
-	if (de_del5 && de)
+	if (de_del5 && de_del3)
 	begin
 		in_b[bit_depth*9-1:bit_depth*8] <= in00[bit_depth*2-1:bit_depth*1];
 		in_b[bit_depth*8-1:bit_depth*7] <= in01[bit_depth*2-1:bit_depth*1];
@@ -258,7 +265,7 @@ reg [bit_depth*9-1:0] in_c;
 
 always @(posedge clk)
 begin
-	if (de_del5 && de)
+	if (de_del5 && de_del3)
 	begin
 		in_c[bit_depth*9-1:bit_depth*8] <= in00[bit_depth*1-1:0];
 		in_c[bit_depth*8-1:bit_depth*7] <= in01[bit_depth*1-1:0];

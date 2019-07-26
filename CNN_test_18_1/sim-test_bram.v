@@ -51,7 +51,7 @@ end
 initial
 cnt_de <= 12'd0;
 
-assign de_out = de_del1 & de_del6;
+assign de_out = de_del4 & de_del6;
 
 always @(posedge clk)
 begin
@@ -87,31 +87,31 @@ begin
 		
 			if(cnt_de[1:0] == 2'b00)
 			begin
-				in0_wren <= 1'b0; 
-				in1_wren <= 1'b0; 
-				in2_wren <= 1'b0; 
-				in3_wren <= 1'b1; 
-			end
-			else if(cnt_de[1:0] == 2'b01)
-			begin
 				in0_wren <= 1'b1; 
 				in1_wren <= 1'b0; 
 				in2_wren <= 1'b0; 
 				in3_wren <= 1'b0; 
 			end
-			else if(cnt_de[1:0] == 2'b10)
+			else if(cnt_de[1:0] == 2'b01)
 			begin
 				in0_wren <= 1'b0; 
 				in1_wren <= 1'b1; 
 				in2_wren <= 1'b0; 
 				in3_wren <= 1'b0; 
 			end
-			else if(cnt_de[1:0] == 2'b11)
+			else if(cnt_de[1:0] == 2'b10)
 			begin
 				in0_wren <= 1'b0; 
 				in1_wren <= 1'b0; 
 				in2_wren <= 1'b1; 
 				in3_wren <= 1'b0; 
+			end
+			else if(cnt_de[1:0] == 2'b11)
+			begin
+				in0_wren <= 1'b0; 
+				in1_wren <= 1'b0; 
+				in2_wren <= 1'b0; 
+				in3_wren <= 1'b1; 
 			end	
 		end
 		else

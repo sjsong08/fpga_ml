@@ -11,7 +11,7 @@ module mid_bram(
 	
 	output reg de_out,
 	output reg fin_rd,
-	output wire bram_toggle,
+	output reg bram_toggle,
 	output wire [20:0] qa_0, qa_1, qa_2, qa_3,
 	output wire [20:0] qb_0, qb_1, qb_2, qb_3,
 	output wire [20:0] qc_0, qc_1, qc_2, qc_3
@@ -65,22 +65,33 @@ begin
 	if (de_del3 == 1'b0 && de_del4 == 1'b1)
 	begin
 		if (cnt_de == image_height - 12'd1)
-			cnt_de <= 5'd0;
+			cnt_de <= 12'd0;
 		else
-			cnt_de <= cnt_de + 5'd1;
+			cnt_de <= cnt_de + 12'd1;
 	end
 	else
 		cnt_de <= cnt_de;
 end
 
-assign bram_toggle = cnt_de[1];
-
 always @(posedge clk)
 begin
-	if (cnt_de[0] == 1'b1 && de_del3 == 1'b0 && de_del4 == 1'b1)
+	if (cnt_de[0] == 1'b0 && de_del3 == 1'b0 && de_del4 == 1'b1)
 		fin_rd <= 1'b1;
 	else
 		fin_rd <= 1'b0;
+end
+
+always @(posedge clk)
+begin
+	if (!start_wr)
+		bram_toggle <= 1'b0;
+	else
+	begin
+		if (fin_rd == 1'b1)
+			bram_toggle <= ~bram_toggle;
+		else
+			bram_toggle <= bram_toggle;
+	end
 end
 
 always@(negedge clk)
@@ -101,28 +112,28 @@ begin
 
 			wr_addr <= wr_addr + 11'd1;
 		
-			if(cnt_de[1:0] == 2'b00)
+			if(cnt_de[1:0] == 2'b011)
 			begin
 				in0_wren <= 1'b1; 
 				in1_wren <= 1'b0; 
 				in2_wren <= 1'b0; 
 				in3_wren <= 1'b0; 
 			end
-			else if(cnt_de[1:0] == 2'b01)
+			else if(cnt_de[1:0] == 2'b10)
 			begin
 				in0_wren <= 1'b0; 
 				in1_wren <= 1'b1; 
 				in2_wren <= 1'b0; 
 				in3_wren <= 1'b0; 
 			end
-			else if(cnt_de[1:0] == 2'b10)
+			else if(cnt_de[1:0] == 2'b11)
 			begin
 				in0_wren <= 1'b0; 
 				in1_wren <= 1'b0; 
 				in2_wren <= 1'b1; 
 				in3_wren <= 1'b0; 
 			end
-			else if(cnt_de[1:0] == 2'b11)
+			else if(cnt_de[1:0] == 2'b00)
 			begin
 				in0_wren <= 1'b0; 
 				in1_wren <= 1'b0; 
@@ -149,7 +160,13 @@ begin
 	end
 end
 
-
+always @(posedge clk)
+begin
+	if (in0_wren || in1_wren || in2_wren || in3_wren)
+		de_out <= 1'b1;
+	else
+		de_out <= 1'b0;
+end
 
 
 

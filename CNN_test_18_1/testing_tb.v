@@ -48,7 +48,7 @@ initial
 #50
 high <= 1'b1;
 
-wire de_tedt;
+wire de_test;
 wire fin_rd, de_out1;
 wire [10:0] rd_addr;
 wire [23:0] in0_q, in1_q, in2_q, in3_q;
@@ -77,7 +77,7 @@ test_bram test_bram(
 
 
 wire [20:0] conv1_qa, conv1_qb, conv1_qc;
-
+wire cinv1_srt_wr;
 
 
 
@@ -97,6 +97,7 @@ conv_layer conv1(
 	.in_addr	(rd_addr),
 	.de		(de_test),
 
+	.start_wr	(conv1_srt_wr),
 	.result_0	(conv1_qa),
 	.result_1	(conv1_qb),	
 	.result_2	(conv1_qc),
@@ -133,7 +134,7 @@ mid_bram mid_bram1(
 	.clk		(clk),
 	.RESET		(rst),
 
-	.start_wr	(fin_rd),
+	.start_wr	(conv1_srt_wr),
 	.in_a		(conv1_qa),
 	.in_b		(conv1_qb),
 	.in_c		(conv1_qc),
@@ -165,10 +166,10 @@ mid_bram mid_bram1(
 );
 
 wire [20:0] d0_ca = (bram_toggle) ? br1_qa_2 : br1_qa_0;
-wire [20:0] d1_ca = (bram_toggle) ? br1_qa_3 : br1_qa_1;
 wire [20:0] d0_cb = (bram_toggle) ? br1_qb_2 : br1_qb_0;
-wire [20:0] d1_cb = (bram_toggle) ? br1_qb_3 : br1_qb_1;
 wire [20:0] d0_cc = (bram_toggle) ? br1_qc_2 : br1_qc_0;
+wire [20:0] d1_ca = (bram_toggle) ? br1_qa_3 : br1_qa_1;
+wire [20:0] d1_cb = (bram_toggle) ? br1_qb_3 : br1_qb_1;
 wire [20:0] d1_cc = (bram_toggle) ? br1_qc_3 : br1_qc_1;
 
 
