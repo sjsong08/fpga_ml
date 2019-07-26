@@ -84,7 +84,12 @@ end
 always @(posedge clk)
 begin
 	if (cnt_de[0] == 1'b0 && de_del3 == 1'b0 && de_del4 == 1'b1)
-		fin_rd <= 1'b1;
+	begin
+		if (cnt_de == 12'd0)
+			fin_rd <= 1'b0;
+		else
+			fin_rd <= 1'b1;
+	end
 	else
 		fin_rd <= 1'b0;
 end
