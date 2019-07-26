@@ -40,4 +40,8 @@ qdb/
 *.txt
 *.sdc
 *.bak
-
+*.o
+*.d
+*.c
+*.h
+*/nios/

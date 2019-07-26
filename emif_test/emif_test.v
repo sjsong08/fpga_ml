@@ -181,7 +181,7 @@ begin
 			if(cnt == 20'd1)
 			begin
 				amm_wr <= 1'b1;
-				amm_addr <= 25'd0;
+				amm_addr <= 25'd155208;
 				amm_burstcnt <= burstlength;
 			end
 			
@@ -203,7 +203,7 @@ begin
 			else if(cnt == burstlength+20'd2)
 			begin
 				amm_wr <= 1'b1;
-				amm_addr <= 25'd0 + burstlength;
+				amm_addr <= 25'd155208 + burstlength;
 				amm_burstcnt <= burstlength;
 			end
 			else if(cnt == burstlength+20'd3)
@@ -232,7 +232,7 @@ begin
 			if(cnt == 20'd1)
 			begin
 				amm_rd <= 1'b1;
-				amm_addr <= 25'd0;
+				amm_addr <= 25'd155208;
 				amm_burstcnt <= burstlength;
 			end
 			
@@ -246,7 +246,7 @@ begin
 			else if(cnt == 20'd11)
 			begin
 				amm_rd <= 1'b1;
-				amm_addr <= 25'd0 + burstlength;	
+				amm_addr <= 25'd155208 + burstlength;	
 				amm_burstcnt <= burstlength;
 			end
 			
