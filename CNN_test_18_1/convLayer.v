@@ -9,7 +9,7 @@ module convLayer #(
 	
 	output reg conven,
 	output reg [10:0] rdaddr,
-	output reg [BD-1:0] qa, qb, qc,
+	output [BD-1:0] qa, qb, qc,
 	output reg next_st_conv, next_st_mp,
 	output reg [10:0] wraddr,
 	output wren0, wren1, wren2, wren3,
@@ -254,7 +254,7 @@ begin
 	endcase
 end
 
-/*
+
 wire [BD-1:0] r_aa, r_ba, r_ca, r_ab, r_bb, r_cb, r_ac, r_bc, r_cc;
 cnn#(.BD(BD)) cnn_aa(
 	.in0(in_0a[inBD*3-1:inBD*2]),
@@ -380,7 +380,7 @@ cnn#(.BD(BD)) cnn_cb(
 	.w6(18'd1),
 	.w7(18'd1),
 	.w8(18'd1),
-	.result(r_bc)
+	.result(r_cb)
 );
 cnn#(.BD(BD)) cnn_ac(
 	.in0(in_0c[inBD*3-1:inBD*2]),
@@ -401,7 +401,7 @@ cnn#(.BD(BD)) cnn_ac(
 	.w6(18'd1),
 	.w7(18'd1),
 	.w8(18'd1),
-	.result(r_ca)
+	.result(r_ac)
 );
 cnn#(.BD(BD)) cnn_bc(
 	.in0(in_0c[inBD*3-1:inBD*2]),
@@ -422,7 +422,7 @@ cnn#(.BD(BD)) cnn_bc(
 	.w6(18'd1),
 	.w7(18'd1),
 	.w8(18'd1),
-	.result(r_cb)
+	.result(r_bc)
 );
 cnn#(.BD(BD)) cnn_cc(
 	.in0(in_0c[inBD*3-1:inBD*2]),
@@ -446,28 +446,29 @@ cnn#(.BD(BD)) cnn_cc(
 	.result(r_cc)
 );
 
-paral_add add_a(
+wire [1:0] a,b,c;
+paral_add4 add_a(
 	.data0x		(r_aa),
 	.data1x		(r_ba),
 	.data2x		(r_ca),
 	.data3x		(bias_a),
-	.result		(qa)
+	.result		({a,qa})
 );
-paral_add add_b(
+paral_add4 add_b(
 	.data0x		(r_ab),
 	.data1x		(r_bb),
 	.data2x		(r_cb),
 	.data3x		(bias_b),
-	.result		(qb)
+	.result		({b,qb})
 );
-paral_add add_c(
+paral_add4 add_c(
 	.data0x		(r_ac),
 	.data1x		(r_bc),
 	.data2x		(r_cc),
 	.data3x		(bias_c),
-	.result		(qc)
+	.result		({c,qc})
 );
-*/
+
 assign wren0 = (bram_num==2'd0)? wren : 1'hz;
 assign wren1 = (bram_num==2'd1)? wren : 1'hz;
 assign wren2 = (bram_num==2'd2)? wren : 1'hz;

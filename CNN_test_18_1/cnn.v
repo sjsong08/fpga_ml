@@ -1,4 +1,5 @@
-module cnn(
+module cnn #(
+	parameter BD = 18 )(
 	input [bit_depth-1:0] in0, in1, in2, in3, in4, in5, in6, in7, in8,
 	input [bit_depth-1:0] w0, w1, w2, w3, w4, w5, w6, w7, w8, 
 	output [bit_depth-1+4:0] result
