@@ -12,8 +12,9 @@ module convLayer #(
 	output [BD-1:0] qa, qb, qc,
 	output reg next_st_conv, next_st_mp,
 	output reg [10:0] wraddr,
-	output wren0, wren1, wren2, wren3,
-	output reg bram_toggle
+	output reg wren,
+	output reg bram_toggle,
+	output reg [1:0] bram_num
 );
 
 
@@ -103,8 +104,8 @@ begin
 	end
 end
 
-reg wren;
-reg [1:0] bram_num;
+//reg wren;
+//reg [1:0] bram_num;
 always@(negedge clk)
 begin
 	if(reset)
@@ -447,6 +448,9 @@ cnn#(.BD(BD)) cnn_cc(
 );
 
 wire [1:0] a,b,c;
+wire bias_a = 18'd0;
+wire bias_b = 18'd0;
+wire bias_c = 18'd0;
 paral_add4 add_a(
 	.data0x		(r_aa),
 	.data1x		(r_ba),
@@ -469,9 +473,9 @@ paral_add4 add_c(
 	.result		({c,qc})
 );
 
-assign wren0 = (bram_num==2'd0)? wren : 1'hz;
-assign wren1 = (bram_num==2'd1)? wren : 1'hz;
-assign wren2 = (bram_num==2'd2)? wren : 1'hz;
-assign wren3 = (bram_num==2'd3)? wren : 1'hz;
+//assign wren0 = (bram_num==2'd0)? wren : 1'b0;
+//assign wren1 = (bram_num==2'd1)? wren : 1'b0;
+//assign wren2 = (bram_num==2'd2)? wren : 1'b0;
+//assign wren3 = (bram_num==2'd3)? wren : 1'b0;
 
 endmodule
