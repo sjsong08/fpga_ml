@@ -15,8 +15,8 @@ module conv_layer(
 );
 
 parameter bit_depth = 8;
-parameter image_width = 11'd28;
-parameter image_height = 11'd28;
+parameter image_width = 11'd1920;
+parameter image_height = 11'd1080;
 
 reg [10:0] cnt_clk;
 always @(posedge clk)
@@ -26,7 +26,7 @@ begin
 		if (cnt_clk == image_width - 11'd1)
 			cnt_clk <= 11'd0;
 		else
-			cnt_clk <= cnt_clk + 11'd0;
+			cnt_clk <= cnt_clk + 11'd1;
 	end
 
 	else
