@@ -10,10 +10,11 @@ module convLayer #(
 	output reg conven,
 	output reg [10:0] rdaddr,
 	output [BD-1:0] qa, qb, qc,
-	output reg next_st_conv, next_st_mp,
+	output reg calend, next_st_conv, next_st_mp,
 	output reg [10:0] wraddr,
-	output wren0, wren1, wren2, wren3,
-	output reg bram_toggle
+	output reg wren,
+	output reg bram_toggle,
+	output reg [1:0] bram_num
 );
 
 
@@ -103,8 +104,8 @@ begin
 	end
 end
 
-reg wren;
-reg [1:0] bram_num;
+//reg wren;
+//reg [1:0] bram_num;
 always@(negedge clk)
 begin
 	if(reset)
@@ -163,19 +164,23 @@ begin
 		next_st_mp <= 1'b0;
 		next_st_conv <= 1'b0;
 		bram_toggle <= 1'b0;
+		calend <= 1'b0;
 	end
 	else
 	begin
 		if(!conven && wraddr == OUTWIDTH)
 		begin
-			if(bram_num==2'd1 || bram_num==2'd3)
+			calend <= 1'b1;
+			if(!next_ready_conv && bram_num==2'd1)
 			begin
 				next_st_mp <= 1'b1;
 				bram_toggle <= ~bram_toggle;
 			end
-			if(next_ready_conv)
+			else if(next_ready_conv)
 			begin
 				next_st_conv <= 1'b1;
+				if(bram_num==2'd1 || bram_num==2'd3)
+					next_st_mp <= 1'b1;
 			end
 			else
 			begin
@@ -185,6 +190,7 @@ begin
 		end
 		else
 		begin
+			calend <= 1'b0;
 			next_st_mp <= 1'b0;
 			next_st_conv <= 1'b0;
 		end
@@ -240,7 +246,7 @@ begin
 			in_2b[inBD-1:0] <= d0[inBD*2-1:inBD*1];
 			in_2c[inBD-1:0] <= d0[inBD*1-1:0];
 		end
-		2'd1:begin
+		2'd3:begin
 			in_0a[inBD-1:0] <= d3[inBD*3-1:inBD*2];
 			in_0b[inBD-1:0] <= d3[inBD*2-1:inBD*1];
 			in_0c[inBD-1:0] <= d3[inBD*1-1:0];
@@ -447,6 +453,9 @@ cnn#(.BD(BD)) cnn_cc(
 );
 
 wire [1:0] a,b,c;
+wire bias_a = 18'd0;
+wire bias_b = 18'd0;
+wire bias_c = 18'd0;
 paral_add4 add_a(
 	.data0x		(r_aa),
 	.data1x		(r_ba),
@@ -469,9 +478,9 @@ paral_add4 add_c(
 	.result		({c,qc})
 );
 
-assign wren0 = (bram_num==2'd0)? wren : 1'hz;
-assign wren1 = (bram_num==2'd1)? wren : 1'hz;
-assign wren2 = (bram_num==2'd2)? wren : 1'hz;
-assign wren3 = (bram_num==2'd3)? wren : 1'hz;
+//assign wren0 = (bram_num==2'd0)? wren : 1'b0;
+//assign wren1 = (bram_num==2'd1)? wren : 1'b0;
+//assign wren2 = (bram_num==2'd2)? wren : 1'b0;
+//assign wren3 = (bram_num==2'd3)? wren : 1'b0;
 
 endmodule
